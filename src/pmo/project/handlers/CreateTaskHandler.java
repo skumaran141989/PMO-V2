@@ -17,7 +17,7 @@ import pmo.project.models.TaskDependency;
 import pmo.project.resource.models.abstraction.HumanResource;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
-public class TaskCreationHandler extends Handler {
+public class CreateTaskHandler extends Handler {
 	
 	@Override
 	public void process(Object request) {
