@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import pmo.project.enums.Status;
 import pmo.project.handlers.abstraction.Handler;
-import pmo.project.handlers.request.ProjectCreationRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
-import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.models.Project;
 import pmo.project.models.Task;
 import pmo.project.models.TaskDependency;
@@ -22,27 +21,37 @@ public class CreateTaskHandler extends Handler {
 	@Override
 	public void process(Object request) {
 		TaskCreationRequest taskCreationRequest = (TaskCreationRequest) request;
+		Project project = _projectManagementRepo.get(taskCreationRequest.getProjectName());
+		Task parent = _taskManagementRepo.get(taskCreationRequest.getTaskName());
+
+		Task task = new Task(taskCreationRequest.getDescription(), taskCreationRequest.getName(), taskCreationRequest.getTimeTaken(), project, parent, taskCreationRequest.getWeightToParent());
+		_taskManagementRepo.save(task);
 		
-		Project project = _projectManagementRepo.getProject(taskCreationRequest.getProjectName());
+		long remainingHours = taskCreationRequest.getRemainingHours();
+		if(remainingHours<=0)
+			task.setReasonForStoppage("Project failed due to insufficient Time for Task - "+task.getTitle());
 		
+		TaskDependency taskdependency = new TaskDependency(task, taskCreationRequest.getWeightToParent());
+		project.setTaskDependecies(taskdependency);
+		_projectManagementRepo.save(project);
+		
+		allocateResources(project, taskCreationRequest, task);
 	}    
 	
-	//Distributed Approach
-	private HandlerResponse allocateResources(Project project, TaskCreationRequest taskRequest, Date startDate, Date dueDate, long remainingHours, Task parentTask, int weight) {
-		HandlerResponse handlerResponse = new HandlerResponse();
+	//Distributed approach
+	private void allocateResources(Project project, TaskCreationRequest taskRequest, Task task) {
+		Date startDate = project.getStartDate();
+		Date dueDate = project.getDueDate();
 		
 		Map<TaskCreationRequest, Integer> dependentTasks = taskRequest.getTaskrequests();
-		
-		if(remainingHours<=0)
-			handlerResponse.getErrorResponse().add("Project failed due to insufficientTime for Task - "+taskRequest.getName());
-		else if (dependentTasks != null) {
+
+		if (dependentTasks != null) {
 			for(Entry<TaskCreationRequest, Integer> childtask : dependentTasks.entrySet()) {
-				handlerResponse.getErrorResponse().addAll(allocateResources(project, childtask.getKey(), startDate, dueDate, remainingHours - childtask.getKey().getTimeTaken(), parentTask, childtask.getValue()).getErrorResponse());
+				CreateTaskHandler createTaskHandler = new CreateTaskHandler();
+				childtask.getKey().setRemainingHours(taskRequest.getRemainingHours()- childtask.getKey().getTimeTaken());
+				createTaskHandler.process(childtask.getKey());
 			}
 		}
-		
-	//resources are allocated for leaf task is allocated first
-		
 		
 		List<MaterialResource> allocatedMaterialResources = new ArrayList<MaterialResource>();
 		
@@ -61,6 +70,9 @@ public class CreateTaskHandler extends Handler {
 					allocatedMaterialResources.add(resource);
 				}
 			}
+			
+			if(allocatedMaterialResources.size()<quantity)
+				task.setReasonForStoppage("Insufficient material resource of type "+ type +" for Task - "+taskRequest.getName());
 		}
 		
 		List<HumanResource> allocatedHumanResources = new ArrayList<HumanResource>();
@@ -68,9 +80,9 @@ public class CreateTaskHandler extends Handler {
 		Map<String, Integer> humanResource = taskRequest.getHumanResource();
 		Set<String> humanResourceKeyset = humanResource.keySet();
 		
-		for(String humanResourcetype:humanResourceKeyset) {
-			int quantity = humanResource.get(humanResourcetype);
-			List<HumanResource> resources = _humanResourceRepo.get(humanResourcetype);
+		for(String type:humanResourceKeyset) {
+			int quantity = humanResource.get(type);
+			List<HumanResource> resources = _humanResourceRepo.get(type);
 			for(HumanResource resource:resources) {
 				if(allocatedHumanResources.size()==quantity)
 					break;
@@ -78,8 +90,21 @@ public class CreateTaskHandler extends Handler {
 				if(resource.allocate(startDate, dueDate))
 					allocatedHumanResources.add(resource);
 			}
+			
+			if(allocatedMaterialResources.size()<quantity)
+				task.setReasonForStoppage("Insufficient human resource of type "+ type +" for Task - "+taskRequest.getName());
 		}
 		
-		return handlerResponse;
+		task.getHumanResources().addAll(allocatedHumanResources);
+		task.getMaterialResources().addAll(allocatedMaterialResources);
+		
+		if (task.getReasonForStoppage()!=null){
+			task.setStatus(Status.PAUSED);
+			project.setStatus(Status.PAUSED);
+		}
+		
+		_projectManagementRepo.save(project);
+		
+		_taskManagementRepo.save(task);
 	}
 }

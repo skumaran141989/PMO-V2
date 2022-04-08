@@ -4,10 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import pmo.project.enums.Status;
-import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.repo.HumanResourceRepo;
-import pmo.project.repo.MaterialResourceRepo;
-import pmo.project.resource.models.ParsedDate;
 import pmo.project.resource.models.abstraction.HumanResource;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
@@ -22,12 +18,12 @@ public class Task {
 	private List<MaterialResource> _materialResources;
 	private int _progress;
 	private int _taskWeight;
-	private int _timeTaken;
+	private long _timeTaken;
 	private Date _startDate;
 	private Date _expectedCompletionDate;
 	private String _reasonForStoppage;
 	
-	public Task(String description, String title, int timeTaken, Project assignedProject, Task parentTask, int taskWeight) {
+	public Task(String description, String title, long timeTaken, Project assignedProject, Task parentTask, int taskWeight) {
 		_description = description;
 		_title = title;
 		_assignedProject = assignedProject;
@@ -35,7 +31,6 @@ public class Task {
 		_taskWeight = taskWeight;
 		_timeTaken = timeTaken;
 	}
-	
 	
     public void setDescription(String description) {
     	_description = description;
@@ -61,7 +56,7 @@ public class Task {
 			if(_parentTask!=null)
 				_parentTask.setProgress( _taskWeight+ _parentTask.getProgress());
 			else if(_assignedProject!=null)
-				_assignedProject.setProgress( _taskWeight+ _parentTask.getProgress());
+				_assignedProject.setProgress( _taskWeight+ _assignedProject.getProgress());
 		}
 	}
 	
@@ -118,6 +113,11 @@ public class Task {
 	}
 	
 	public void setReasonForStoppage(String reasonForStoppage) {
+		if(_parentTask!=null)
+			_parentTask.setReasonForStoppage( _parentTask.getReasonForStoppage().concat(reasonForStoppage));
+		if(_assignedProject!=null)
+			_assignedProject.setReasonForStoppage(_assignedProject.getReasonForStoppage().concat(reasonForStoppage));
+		
 		_reasonForStoppage = reasonForStoppage;
 	}
 	
@@ -141,7 +141,7 @@ public class Task {
     	_timeTaken = timeTaken;
     }
     
-    public int getTimeTaken() {
+    public long getTimeTaken() {
     	return _timeTaken;
     }
 }

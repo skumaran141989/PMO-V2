@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import pmo.project.resource.models.abstraction.HumanResource;
-import pmo.project.resource.models.abstraction.MaterialResource;
 
 
 //NOSQL partitioned on Human resource Type

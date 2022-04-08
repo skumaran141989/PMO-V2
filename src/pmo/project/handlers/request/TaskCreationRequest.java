@@ -12,7 +12,8 @@ public class TaskCreationRequest {
     private String _description;
     private String _projectName;
     private long _remainingHours;
-    private String _reasonForStoppage;
+    private int _weightToParent;
+    private String _taskName;
     
     public TaskCreationRequest() {
     	_humanResource = new HashMap<String, Integer>();
@@ -82,5 +83,22 @@ public class TaskCreationRequest {
     
     public long getRemainingHours() {
     	return _remainingHours;
+    }
+    
+    public void setWeightToParent(int weightToParent) {
+    	_weightToParent = weightToParent;
+    }
+    
+    public int getWeightToParent() {
+    	return _weightToParent;
+    }
+    
+    
+    public void setTasktName(String taskName) {
+    	_taskName = taskName;
+    }
+    
+    public String getTaskName() {
+    	return _taskName;
     }
 }

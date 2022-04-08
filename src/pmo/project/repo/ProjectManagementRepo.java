@@ -20,7 +20,7 @@ public class ProjectManagementRepo {
 	  return _projects;
   }
   
-  public Project getProject(String projectName) {
+  public Project get(String projectName) {
 	  return _projects.get(projectName);
   }
 }

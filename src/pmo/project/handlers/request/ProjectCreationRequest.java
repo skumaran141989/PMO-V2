@@ -1,7 +1,7 @@
 package pmo.project.handlers.request;
 
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ProjectCreationRequest {
@@ -10,6 +10,10 @@ public class ProjectCreationRequest {
     private Map<TaskCreationRequest, Integer> _taskRequests;
     private Date _startDate; 
     private Date _dueDate;
+    
+    public ProjectCreationRequest() {
+    	_taskRequests = new HashMap<TaskCreationRequest, Integer>();
+    }
     
     public void setName(String name) {
     	_name = name;

@@ -22,7 +22,7 @@ public abstract class Handler {
     }
     
     public void setProjectManagementRepo(TaskManagementRepo taskManagementRepo) {
-    	_taskManagementRepo = _taskManagementRepo;
+    	_taskManagementRepo = taskManagementRepo;
     }
 	
 	public abstract void process(Object request);	
