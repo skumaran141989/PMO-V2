@@ -27,7 +27,6 @@ public class CreateTaskHandler extends Handler {
 		
 	}    
 	
-	
 	//Distributed Approach
 	private HandlerResponse allocateResources(Project project, TaskCreationRequest taskRequest, Date startDate, Date dueDate, long remainingHours, Task parentTask, int weight) {
 		HandlerResponse handlerResponse = new HandlerResponse();

@@ -1,11 +1,15 @@
 package pmo.project.handlers.request;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class ProjectCreationRequest {
     private String _name;
     private String _description;
-    private List<TaskCreationRequest> _taskRequests;
+    private Map<TaskCreationRequest, Integer> _taskRequests;
+    private Date _startDate; 
+    private Date _dueDate;
     
     public void setName(String name) {
     	_name = name;
@@ -23,11 +27,27 @@ public class ProjectCreationRequest {
     	return _description;
     }
     
-    public void setTaskrequests(TaskCreationRequest taskrequest) {
-    	_taskRequests.add(taskrequest);
+    public void setTaskrequests(TaskCreationRequest taskrequest, int weight) {
+    	_taskRequests.put(taskrequest, weight);
     }
     
-    public List<TaskCreationRequest> getTaskrequests() {
+    public Map<TaskCreationRequest, Integer> getTaskrequests() {
     	return _taskRequests;
+    }
+    
+    public void setStartDate(Date startDate) {
+    	_startDate = startDate;
+    }
+    
+    public Date getStartDate() {
+    	return _startDate;
+    }
+    
+    public void setDueDate(Date dueDate) {
+    	_dueDate = dueDate;
+    }
+    
+    public Date getDueDate() {
+    	return _dueDate;
     }
 }

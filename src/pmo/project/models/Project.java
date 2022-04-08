@@ -1,5 +1,6 @@
 package pmo.project.models;
 
+import java.util.Date;
 import java.util.List;
 
 import pmo.project.enums.Status;
@@ -9,9 +10,10 @@ public class Project {
 	private String _title;
     private List<TaskDependency> _tasks;
     private Status _status;
-    private String _startDate; 
-    private String _dueDate;
+    private Date _startDate; 
+    private Date _dueDate;
     private int _progress;
+	private String _reasonForStoppage;
     
     public Project(String description, String title) {
     	_description = description;
@@ -42,19 +44,19 @@ public class Project {
     	return _status;
     }
     
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
     	_startDate = startDate;
     }
     
-    public String getStartDate() {
+    public Date getStartDate() {
     	return _startDate;
     }
     
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
     	_dueDate = dueDate;
     }
     
-    public String getDueDate() {
+    public Date getDueDate() {
     	return _dueDate;
     }
     
@@ -72,5 +74,13 @@ public class Project {
 	
 	public int getProgress() {
 		return _progress;
+	}
+	
+	public void setReasonForStoppage(String reasonForStoppage) {
+		_reasonForStoppage = reasonForStoppage;
+	}
+	
+	public String getReasonForStoppage() {
+		return _reasonForStoppage;
 	}
 }

@@ -12,6 +12,7 @@ public class TaskCreationRequest {
     private String _description;
     private String _projectName;
     private long _remainingHours;
+    private String _reasonForStoppage;
     
     public TaskCreationRequest() {
     	_humanResource = new HashMap<String, Integer>();

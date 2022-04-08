@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import pmo.project.enums.Status;
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.request.ProjectCreationRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
@@ -21,8 +22,29 @@ public class CreateProjectHandler extends Handler {
 	
 	@Override
 	public void process(Object request) {
+		HandlerResponse handlerResponse = new HandlerResponse();
 		ProjectCreationRequest projectCreationRequest = (ProjectCreationRequest) request;
 		Project project = new Project(projectCreationRequest.getDescription(), projectCreationRequest.getName());
+		_projectManagementRepo.save(project);
+		
+		Date dueDate = projectCreationRequest.getDueDate();
+		Date startDate = projectCreationRequest.getStartDate();
+		Map<TaskCreationRequest, Integer> dependentTasks = projectCreationRequest.getTaskrequests();
+		
+		long remainingHours=(projectCreationRequest.getDueDate().getTime()-projectCreationRequest.getStartDate().getTime())/(60*60 * 1000);
+		if(remainingHours<=0)
+			handlerResponse.getErrorResponse().add("Project failed due to insufficientTime for Task - "+project.getTitle());
+		else if (dependentTasks != null) {
+			for(Entry<TaskCreationRequest, Integer> childtask : dependentTasks.entrySet()) {
+				handlerResponse.getErrorResponse().addAll(allocateResources(project, childtask.getKey(), startDate, dueDate, remainingHours - childtask.getKey().getTimeTaken(), null, childtask.getValue()).getErrorResponse());
+			}
+		}
+		
+		if(handlerResponse.getErrorResponse().size()>0) {
+			project.setStatus(Status.PAUSED);
+			project.setReasonForStoppage(handlerResponse.toString());
+		}
+		
 		_projectManagementRepo.save(project);
 	}    
 	
@@ -36,16 +58,14 @@ public class CreateProjectHandler extends Handler {
 		project.setTaskDependecies(taskdependency);
 		_projectManagementRepo.save(project);
 		
-		
-		HandlerResponse handlerResponse = new HandlerResponse();
-		
 		Map<TaskCreationRequest, Integer> dependentTasks = taskRequest.getTaskrequests();
 		
+		HandlerResponse handlerResponse = new HandlerResponse();
 		if(remainingHours<=0)
-			handlerResponse.getErrorResponse().add("Project failed due to insufficientTime for Task - "+taskRequest.getName());
+			handlerResponse.getErrorResponse().add("Project failed due to insufficient Time for Task - "+taskRequest.getName());
 		else if (dependentTasks != null) {
 			for(Entry<TaskCreationRequest, Integer> childtask : dependentTasks.entrySet()) {
-				handlerResponse.getErrorResponse().addAll(allocateResources(project, childtask.getKey(), startDate, dueDate, remainingHours - childtask.getKey().getTimeTaken(), task, childtask.getValue()).getErrorResponse());
+				handlerResponse.getErrorResponse().addAll(allocateResources(project, childtask.getKey(), startDate, dueDate, remainingHours - childtask.getKey().getTimeTaken(), task, childtask.getValue() ).getErrorResponse());
 			}
 		}
 		
@@ -66,6 +86,9 @@ public class CreateProjectHandler extends Handler {
 					allocatedMaterialResources.add(resource);
 				}
 			}
+			
+			if(allocatedMaterialResources.size()<quantity)
+				handlerResponse.getErrorResponse().add("Insufficient material resource of type "+ type +" for Task - "+taskRequest.getName());
 		}
 		
 		List<HumanResource> allocatedHumanResources = new ArrayList<HumanResource>();
@@ -73,9 +96,9 @@ public class CreateProjectHandler extends Handler {
 		Map<String, Integer> humanResource = taskRequest.getHumanResource();
 		Set<String> humanResourceKeyset = humanResource.keySet();
 		
-		for(String humanResourcetype:humanResourceKeyset) {
-			int quantity = humanResource.get(humanResourcetype);
-			List<HumanResource> resources = _humanResourceRepo.get(humanResourcetype);
+		for(String type:humanResourceKeyset) {
+			int quantity = humanResource.get(type);
+			List<HumanResource> resources = _humanResourceRepo.get(type);
 			for(HumanResource resource:resources) {
 				if(allocatedHumanResources.size()==quantity)
 					break;
@@ -83,10 +106,21 @@ public class CreateProjectHandler extends Handler {
 				if(resource.allocate(startDate, dueDate))
 					allocatedHumanResources.add(resource);
 			}
+			
+			if(allocatedMaterialResources.size()<quantity)
+				handlerResponse.getErrorResponse().add("Insufficient human resource of type "+ type +" for Task - "+taskRequest.getName());
 		}
 		
 		task.getHumanResources().addAll(allocatedHumanResources);
 		task.getMaterialResources().addAll(allocatedMaterialResources);
+		
+		
+		if(handlerResponse.getErrorResponse().size()>0) {
+			task.setStatus(Status.PAUSED);
+			task.setReasonForStoppage(handlerResponse.toString());
+		}
+		
+		_projectManagementRepo.save(project);
 		
 		_taskManagementRepo.save(task);
 		

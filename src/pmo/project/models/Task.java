@@ -23,8 +23,8 @@ public class Task {
 	private int _progress;
 	private int _taskWeight;
 	private int _timeTaken;
-	private String _startDate;
-	private String _expectedCompletionDate;
+	private Date _startDate;
+	private Date _expectedCompletionDate;
 	private String _reasonForStoppage;
 	
 	public Task(String description, String title, int timeTaken, Project assignedProject, Task parentTask, int taskWeight) {
@@ -101,19 +101,19 @@ public class Task {
 		return _progress;
 	}
 	
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		_startDate = startDate;
 	}
 	
-	public String getStartDate() {
+	public Date getStartDate() {
 		return _startDate;
 	}
 	
-	public void setExpectedCompletionDate(String expectedCompletionDate) {
+	public void setExpectedCompletionDate(Date expectedCompletionDate) {
 		_expectedCompletionDate = expectedCompletionDate;
 	}
 	
-	public String getExpectedCompletionDate() {
+	public Date getExpectedCompletionDate() {
 		return _expectedCompletionDate;
 	}
 	
