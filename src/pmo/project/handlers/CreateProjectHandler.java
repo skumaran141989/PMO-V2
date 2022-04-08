@@ -7,10 +7,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import com.project.handlers.request.ProjectCreationRequest;
-import com.project.handlers.request.TaskCreationRequest;
-
 import pmo.project.handlers.abstraction.Handler;
+import pmo.project.handlers.request.ProjectCreationRequest;
+import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.models.Project;
 import pmo.project.models.Task;
