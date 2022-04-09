@@ -14,7 +14,7 @@ public abstract class HumanResource {
     private String _contactNumber;
     private double _salary;
 	private List<Task> _tasks;
-	private List<Slot> slots;
+	private List<Slot> _slots;
 	
 	public void setFirstName(String firstName) {
 		_firstName = firstName;
@@ -64,11 +64,11 @@ public abstract class HumanResource {
 	}
 	
 	public boolean allocate(Date startDate, Date dueDate) {
-		if(slots==null)
-			slots = new ArrayList<Slot>();
-	    for(Slot slot: slots)
+		if(_slots==null)
+			_slots = new ArrayList<Slot>();
+	    for(Slot slot: _slots)
 	    	if(!slot.isSlotWithinRange(startDate, dueDate))
-	    		slots.add(new Slot(startDate, dueDate));
+	    		_slots.add(new Slot(startDate, dueDate));
 	    	else
 	    		return false;
 	    

@@ -2,22 +2,26 @@ package pmo.project.models;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import pmo.project.enums.Status;
+import pmo.project.handlers.request.TaskCreationRequest;
 
 public class Project {
 	private String _description;
 	private String _title;
     private List<TaskDependency> _tasks;
+    private Map<TaskCreationRequest,Integer> _requirements;
     private Status _status;
     private Date _startDate; 
     private Date _dueDate;
     private int _progress;
 	private String _reasonForStoppage;
     
-    public Project(String description, String title) {
+    public Project(String description, String title, Map<TaskCreationRequest,Integer> requirements) {
     	_description = description;
     	_title = title;
+    	_requirements = requirements;
     }
     
     public void setDescription(String description) {
@@ -82,5 +86,9 @@ public class Project {
 	
 	public String getReasonForStoppage() {
 		return _reasonForStoppage;
+	}
+	
+	public Map<TaskCreationRequest,Integer> getRequirements() {
+		return _requirements;
 	}
 }

@@ -2,6 +2,7 @@ package pmo.project.handlers.abstraction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.repo.*;
 
 //Each handler for each type of request
@@ -31,5 +32,5 @@ public abstract class Handler {
     	_taskManagementRepo = taskManagementRepo;
     }
 	
-	public abstract void process(Object request);	
+	public abstract HandlerResponse process(Object request);
 }

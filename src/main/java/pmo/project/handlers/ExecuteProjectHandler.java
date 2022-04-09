@@ -5,13 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.springframework.scheduling.annotation.Async;
 
-import java.util.Set;
-
 import pmo.project.enums.Status;
 import pmo.project.handlers.abstraction.Handler;
+import pmo.project.handlers.request.ProjectCreationRequest;
+import pmo.project.handlers.request.ProjectExecutionRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.models.Project;
@@ -20,43 +21,49 @@ import pmo.project.models.TaskDependency;
 import pmo.project.resource.models.abstraction.HumanResource;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
-public class CreateTaskHandler extends Handler {
+public class ExecuteProjectHandler extends Handler {
 	
 	@Override
-	@Async("TaskExecutor")
+	@Async("ProjectExecutor")
 	public HandlerResponse process(Object request) {
-		TaskCreationRequest taskCreationRequest = (TaskCreationRequest) request;
-		Project project = _projectManagementRepo.get(taskCreationRequest.getProjectName());
-		Task parent = _taskManagementRepo.get(taskCreationRequest.getTaskName());
-
-		Task task = new Task(taskCreationRequest.getDescription(), taskCreationRequest.getName(), taskCreationRequest.getTimeTaken(), project, parent, taskCreationRequest.getWeightToParent());
-		_taskManagementRepo.save(task);
+		ProjectExecutionRequest projectExecutionRequest = (ProjectExecutionRequest) request;
+		Project project = _projectManagementRepo.get(projectExecutionRequest.getProjectName());
+		project.setDueDate(projectExecutionRequest.getDueDate());
+		project.setStartDate(projectExecutionRequest.getStartDate());
 		
-		long remainingHours = taskCreationRequest.getRemainingHours();
+		Map<TaskCreationRequest, Integer> dependentTasks = project.getRequirements();
+		
+		long remainingHours=(project.getDueDate().getTime()-project.getStartDate().getTime())/(60*60 * 1000);
 		if(remainingHours<=0)
-			task.setReasonForStoppage("Project failed due to insufficient Time for Task - "+task.getTitle());
-		
-		TaskDependency taskdependency = new TaskDependency(task, taskCreationRequest.getWeightToParent());
-		project.setTaskDependecies(taskdependency);
-		_projectManagementRepo.save(project);
-		
-		allocateResources(project, taskCreationRequest, task);
+			project.setReasonForStoppage("Project failed due to insufficientTime for Task - "+project.getTitle());
+		else if (dependentTasks != null) {
+			for(Entry<TaskCreationRequest, Integer> childtask : dependentTasks.entrySet()) {
+				allocateResources(project, childtask.getKey(), remainingHours - childtask.getKey().getTimeTaken(), null, childtask.getValue());
+			}
+		}
 		
 		 return null;
 	}    
 	
-	//Distributed approach
-	private void allocateResources(Project project, TaskCreationRequest taskRequest, Task task) {
+	//linear approach for task creation
+	private void allocateResources(Project project, TaskCreationRequest taskRequest, long remainingHours, Task parentTask, int weight) {
 		Date startDate = project.getStartDate();
 		Date dueDate = project.getDueDate();
 		
+		Task task = new Task(taskRequest.getDescription(), taskRequest.getName(), parentTask.getTimeTaken(), project, parentTask, weight);
+		_taskManagementRepo.save(task);
+		
+		TaskDependency taskdependency = new TaskDependency(task, weight);
+		project.setTaskDependecies(taskdependency);
+		_projectManagementRepo.save(project);
+		
 		Map<TaskCreationRequest, Integer> dependentTasks = taskRequest.getTaskrequests();
-
-		if (dependentTasks != null) {
+		
+		if(remainingHours<=0)
+			task.setReasonForStoppage("Project failed due to insufficient Time for Task - "+taskRequest.getName());
+		else if (dependentTasks != null) {
 			for(Entry<TaskCreationRequest, Integer> childtask : dependentTasks.entrySet()) {
-				CreateTaskHandler createTaskHandler = new CreateTaskHandler();
-				childtask.getKey().setRemainingHours(taskRequest.getRemainingHours()- childtask.getKey().getTimeTaken());
-				createTaskHandler.process(childtask.getKey());
+				allocateResources(project, childtask.getKey(), remainingHours - childtask.getKey().getTimeTaken(), task, childtask.getValue() );
 			}
 		}
 		
@@ -75,6 +82,7 @@ public class CreateTaskHandler extends Handler {
 				
 				if(resource.consume()) {
 					allocatedMaterialResources.add(resource);
+					_materialResourceRepo.save(resource);
 				}
 			}
 			
@@ -94,8 +102,10 @@ public class CreateTaskHandler extends Handler {
 				if(allocatedHumanResources.size()==quantity)
 					break;
 				
-				if(resource.allocate(startDate, dueDate))
+				if(resource.allocate(startDate, dueDate)) {
 					allocatedHumanResources.add(resource);
+					_humanResourceRepo.save(resource);
+				}
 			}
 			
 			if(allocatedMaterialResources.size()<quantity)

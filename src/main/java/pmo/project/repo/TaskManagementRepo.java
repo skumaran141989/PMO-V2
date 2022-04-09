@@ -6,21 +6,21 @@ import java.util.Map;
 import pmo.project.models.Task;
 
 public class TaskManagementRepo {
-  private Map<String, Task> _projects;
+  private Map<String, Task> _tasks;
   
   public TaskManagementRepo() {
-	  _projects = new HashMap<String, Task>();
+	  _tasks = new HashMap<String, Task>();
   }
   
   public void save(Task task) {
-	  _projects.put(task.getTitle(), task);
+	  _tasks.put(task.getTitle(), task);
   }
   
   public Map<String, Task> getAll() {
-	  return _projects;
+	  return _tasks;
   }
   
   public Task get(String projectName) {
-	  return _projects.get(projectName);
+	  return _tasks.get(projectName);
   }
 }
