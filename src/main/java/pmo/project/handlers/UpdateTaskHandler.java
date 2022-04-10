@@ -4,24 +4,24 @@ import org.springframework.scheduling.annotation.Async;
 
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.resource.models.abstraction.HumanResource;
+import pmo.project.models.Task;
 
-public class SaveHumanResourceHandler extends Handler {
-	
+public class UpdateTaskHandler extends Handler {
+
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {
-		HumanResource resource = (HumanResource) request;
+		Task resource = (Task) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
 		execute(resource);
 		response.setObject(true);
 		
 		return response;
-	}  
+	}
 	
-	@Async("Level1")
-	private void execute(HumanResource resource)
+	@Async("Level2")
+	private void execute(Task resource)
 	{
-		_humanResourceRepo.save(resource);
+		_taskManagementRepo.save(resource);
 	}
 }

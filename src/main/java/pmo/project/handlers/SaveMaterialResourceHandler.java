@@ -9,11 +9,19 @@ import pmo.project.resource.models.abstraction.MaterialResource;
 public class SaveMaterialResourceHandler extends Handler {
 
 	@Override
-	@Async("ResourceExecutor")
-	public HandlerResponse process(Object request) {
+	public HandlerResponse<Boolean> process(Object request) {
 		MaterialResource resource = (MaterialResource) request;
-		_materialResourceRepo.save(resource);
+		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
-		return null;
+		execute(resource);
+		response.setObject(true);
+		
+		return response;
 	} 
+	
+	@Async("Level1")
+	private void execute(MaterialResource resource)
+	{
+		_materialResourceRepo.save(resource);
+	}
 }

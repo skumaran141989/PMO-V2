@@ -11,7 +11,6 @@ import org.springframework.scheduling.annotation.Async;
 
 import pmo.project.enums.Status;
 import pmo.project.handlers.abstraction.Handler;
-import pmo.project.handlers.request.ProjectCreationRequest;
 import pmo.project.handlers.request.ProjectExecutionRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.handlers.response.HandlerResponse;
@@ -24,9 +23,20 @@ import pmo.project.resource.models.abstraction.MaterialResource;
 public class ExecuteProjectHandler extends Handler {
 	
 	@Override
-	@Async("ProjectExecutor")
-	public HandlerResponse process(Object request) {
+	public HandlerResponse<Boolean>  process(Object request) {
+		
 		ProjectExecutionRequest projectExecutionRequest = (ProjectExecutionRequest) request;
+		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
+		
+		execute(projectExecutionRequest);
+		response.setObject(true);
+		
+		return response;
+	}  
+	
+	@Async("Level2")
+	private void execute(ProjectExecutionRequest projectExecutionRequest)
+	{
 		Project project = _projectManagementRepo.get(projectExecutionRequest.getProjectName());
 		project.setDueDate(projectExecutionRequest.getDueDate());
 		project.setStartDate(projectExecutionRequest.getStartDate());
@@ -41,9 +51,7 @@ public class ExecuteProjectHandler extends Handler {
 				allocateResources(project, childtask.getKey(), remainingHours - childtask.getKey().getTimeTaken(), null, childtask.getValue());
 			}
 		}
-		
-		 return null;
-	}    
+	}
 	
 	//linear approach for task creation
 	private void allocateResources(Project project, TaskCreationRequest taskRequest, long remainingHours, Task parentTask, int weight) {

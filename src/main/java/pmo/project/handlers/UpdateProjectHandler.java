@@ -9,12 +9,20 @@ import pmo.project.models.Project;
 public class UpdateProjectHandler extends Handler {
 
 	@Override
-	@Async("ProjectTaskExecutor")
-	public HandlerResponse process(Object request) {
+	public HandlerResponse<Boolean> process(Object request) {
 		Project resource = (Project) request;
-		_projectManagementRepo.save(resource);
+		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
-		return null;
+		execute(resource);
+		response.setObject(true);
+		
+		return response;
 	}  
+	
+	@Async("Level2")
+	private void execute(Project resource)
+	{
+		_projectManagementRepo.save(resource);
+	}
 
 }

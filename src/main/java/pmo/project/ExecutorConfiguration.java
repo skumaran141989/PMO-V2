@@ -11,7 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @EnableAsync
 public class ExecutorConfiguration {
 	
-	 @Bean(name = "ProjectExecutor")
+	 @Bean(name = "Level1")
 	 public Executor getProjectExecutor() {
 	  ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 	  taskExecutor.setCorePoolSize(20);
@@ -21,7 +21,7 @@ public class ExecutorConfiguration {
 	  return taskExecutor;
 	 }
 	 
-	 @Bean(name = "TaskExecutor")
+	 @Bean(name = "Level2")
 	 public Executor getProjectTaskExecutor() {
 	  ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
 	  taskExecutor.setCorePoolSize(40);
@@ -31,11 +31,11 @@ public class ExecutorConfiguration {
 	  return taskExecutor;
 	 }
 	 
-	 @Bean(name = "ResourceExecutor")
+	 @Bean(name = "Level3")
 	 public Executor getResourceExecutor() {
 	  ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
-	  taskExecutor.setCorePoolSize(10);
-	  taskExecutor.setMaxPoolSize(30);
+	  taskExecutor.setCorePoolSize(100);
+	  taskExecutor.setMaxPoolSize(300);
 	  taskExecutor.setQueueCapacity(10);
 	  taskExecutor.initialize();
 	  return taskExecutor;

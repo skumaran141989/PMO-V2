@@ -6,8 +6,6 @@ import pmo.project.resource.models.*;
 public class ConsoleClient {
 	
 	public static void main(String[] args) {
-		ProjectManagementRepo _projectManagementRepo = new ProjectManagementRepo();
-		TaskManagementRepo _taskManagementRepoo = new TaskManagementRepo();
 		MaterialResourceRepo _materialResourceRepo = new MaterialResourceRepo();
 		HumanResourceRepo _humanResourceRepo = new HumanResourceRepo();
 		

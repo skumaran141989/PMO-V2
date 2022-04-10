@@ -23,9 +23,20 @@ import pmo.project.resource.models.abstraction.MaterialResource;
 public class CreateTaskHandler extends Handler {
 	
 	@Override
-	@Async("TaskExecutor")
-	public HandlerResponse process(Object request) {
+	public HandlerResponse<Boolean> process(Object request) {
+		
 		TaskCreationRequest taskCreationRequest = (TaskCreationRequest) request;
+		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
+		
+		execute(taskCreationRequest);
+		response.setObject(true);
+		
+		return response;
+	}   
+	
+	@Async("Level3")
+	private void execute(TaskCreationRequest taskCreationRequest)
+	{
 		Project project = _projectManagementRepo.get(taskCreationRequest.getProjectName());
 		Task parent = _taskManagementRepo.get(taskCreationRequest.getTaskName());
 
@@ -41,9 +52,7 @@ public class CreateTaskHandler extends Handler {
 		_projectManagementRepo.save(project);
 		
 		allocateResources(project, taskCreationRequest, task);
-		
-		 return null;
-	}    
+	}
 	
 	//Distributed approach
 	private void allocateResources(Project project, TaskCreationRequest taskRequest, Task task) {
@@ -75,6 +84,7 @@ public class CreateTaskHandler extends Handler {
 				
 				if(resource.consume()) {
 					allocatedMaterialResources.add(resource);
+					_materialResourceRepo.save(resource);
 				}
 			}
 			
@@ -94,8 +104,10 @@ public class CreateTaskHandler extends Handler {
 				if(allocatedHumanResources.size()==quantity)
 					break;
 				
-				if(resource.allocate(startDate, dueDate))
+				if(resource.allocate(startDate, dueDate)){
 					allocatedHumanResources.add(resource);
+					_humanResourceRepo.save(resource);
+				}
 			}
 			
 			if(allocatedMaterialResources.size()<quantity)

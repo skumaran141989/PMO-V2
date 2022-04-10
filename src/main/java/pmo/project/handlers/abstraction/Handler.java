@@ -15,22 +15,8 @@ public abstract class Handler {
 	protected ProjectManagementRepo _projectManagementRepo;
 	@Autowired
 	protected TaskManagementRepo _taskManagementRepo;
-	
-    public void setHumanResourceRepo(HumanResourceRepo humanResourceRepo) {
-    	_humanResourceRepo = humanResourceRepo;
-    }
-    
-    public void setMaterialResourceRepo(MaterialResourceRepo materialResourceRepo) {
-    	_materialResourceRepo = materialResourceRepo;
-    }
-    
-    public void setProjectManagementRepo(ProjectManagementRepo projectManagementRepo) {
-    	_projectManagementRepo = projectManagementRepo;
-    }
-    
-    public void setProjectManagementRepo(TaskManagementRepo taskManagementRepo) {
-    	_taskManagementRepo = taskManagementRepo;
-    }
+	@Autowired
+	protected ReportRepo _reportRepo;
 	
 	public abstract HandlerResponse process(Object request);
 }

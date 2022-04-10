@@ -37,4 +37,10 @@ public class PMOApplication {
 	public TaskManagementRepo getTaskManagementRepo() {	
 		return new TaskManagementRepo();
 	}
+	
+	@Bean
+	@Scope("singleton")
+	public ReportRepo getReportRepo() {	
+		return new ReportRepo();
+	}
 }
