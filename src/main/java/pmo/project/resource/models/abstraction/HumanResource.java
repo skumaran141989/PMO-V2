@@ -6,6 +6,7 @@ import java.util.List;
 
 import pmo.project.models.Slot;
 import pmo.project.models.Task;
+import pmo.project.repo.UserCalendarRepo;
 
 public abstract class HumanResource {
     private String _firstName;
@@ -16,6 +17,7 @@ public abstract class HumanResource {
 	private List<Task> _tasks;
 	private List<Slot> _slots;
 	private boolean _isUsable;
+	private UserCalendarRepo _usercalendar;
 	
 	public void setFirstName(String firstName) {
 		_firstName = firstName;
@@ -65,6 +67,11 @@ public abstract class HumanResource {
 	}
 	
 	public void setIsUsable(boolean isUsable) {
+		
+		if(isUsable==true && !_tasks.isEmpty())
+		for(Task task : _tasks)
+		   task.setReasonForStoppage("Resource "+_id+" unavailable.");
+			
 		_isUsable = isUsable;
 	}
 	
@@ -80,7 +87,11 @@ public abstract class HumanResource {
 	    		_slots.add(new Slot(startDate, dueDate));
 	    	else
 	    		return false;
-	    
+
 	    return true;
+	}
+	
+	public UserCalendarRepo getUserCalendar() {
+		return _usercalendar;
 	}
 }
