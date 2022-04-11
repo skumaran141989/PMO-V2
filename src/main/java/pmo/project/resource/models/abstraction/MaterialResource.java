@@ -6,6 +6,7 @@ public abstract class MaterialResource {
 	private long _metricValue;
 	private double _price;
 	private boolean _utilized;
+	private boolean _isUsable;
 	
 	public MaterialResource() {
 		_utilized = false; 
@@ -41,6 +42,14 @@ public abstract class MaterialResource {
 	
 	public boolean getUtilized() {
 		return _utilized;
+	}
+	
+	public void setIsUsable(boolean isUsable) {
+		_isUsable = isUsable;
+	}
+	
+	public boolean getIsUsable() {
+		return _isUsable;
 	}
 	
 	public boolean consume() {

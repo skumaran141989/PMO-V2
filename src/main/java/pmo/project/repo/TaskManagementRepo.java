@@ -5,6 +5,7 @@ import java.util.Map;
 
 import pmo.project.models.Task;
 
+//DB partitioned or indexed on Task ID
 public class TaskManagementRepo {
   private Map<String, Task> _tasks;
   
@@ -20,7 +21,11 @@ public class TaskManagementRepo {
 	  return _tasks;
   }
   
-  public Task get(String projectName) {
-	  return _tasks.get(projectName);
+  public Task get(String taskName) {
+	  return _tasks.get(taskName);
+  }
+  
+  public void delete(String taskName) {
+	  _tasks.remove(taskName);
   }
 }

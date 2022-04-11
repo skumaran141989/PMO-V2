@@ -7,8 +7,7 @@ import java.util.Map;
 
 import pmo.project.resource.models.abstraction.HumanResource;
 
-
-//NOSQL partitioned on Human resource Type
+//DB partitioned or indexed on Human resource Type
 public class HumanResourceRepo {
 	  private Map<String, List<HumanResource>> _employees;
 	  

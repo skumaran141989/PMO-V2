@@ -15,6 +15,7 @@ public abstract class HumanResource {
     private double _salary;
 	private List<Task> _tasks;
 	private List<Slot> _slots;
+	private boolean _isUsable;
 	
 	public void setFirstName(String firstName) {
 		_firstName = firstName;
@@ -61,6 +62,14 @@ public abstract class HumanResource {
 			_tasks = new ArrayList<Task>();
 		
 		return _tasks;
+	}
+	
+	public void setIsUsable(boolean isUsable) {
+		_isUsable = isUsable;
+	}
+	
+	public boolean getIsUsable() {
+		return _isUsable;
 	}
 	
 	public boolean allocate(Date startDate, Date dueDate) {

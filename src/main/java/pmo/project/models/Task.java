@@ -1,7 +1,9 @@
 package pmo.project.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import pmo.project.enums.Status;
 import pmo.project.resource.models.abstraction.HumanResource;
@@ -22,6 +24,7 @@ public class Task {
 	private Date _startDate;
 	private Date _expectedCompletionDate;
 	private String _reasonForStoppage;
+	private List<DocumentInfo> _documents;
 	
 	public Task(String description, String title, long timeTaken, Project assignedProject, Task parentTask, int taskWeight) {
 		_description = description;
@@ -30,6 +33,7 @@ public class Task {
 		_parentTask = parentTask;
 		_taskWeight = taskWeight;
 		_timeTaken = timeTaken;
+		_documents = new ArrayList<DocumentInfo>();
 	}
 	
     public void setDescription(String description) {
@@ -143,5 +147,15 @@ public class Task {
     
     public long getTimeTaken() {
     	return _timeTaken;
+    }
+    
+    public void setDocuments(Object document) {
+    	DocumentInfo doc = new DocumentInfo(UUID.randomUUID().toString() ,document);
+    	
+    	_documents.add(doc);
+    }
+    
+    public List<DocumentInfo>  getDocuments() {
+    	return _documents;
     }
 }

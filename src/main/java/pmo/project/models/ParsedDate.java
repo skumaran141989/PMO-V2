@@ -1,4 +1,4 @@
-package pmo.project.resource.models;
+package pmo.project.models;
 
 public class ParsedDate {
    private int _year;

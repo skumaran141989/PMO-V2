@@ -14,8 +14,9 @@ import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.request.ProjectExecutionRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.handlers.response.ProjectFeasibilityReport;
+import pmo.project.models.DocumentInfo;
 import pmo.project.models.Project;
+import pmo.project.models.ProjectFeasibilityReport;
 import pmo.project.resource.models.abstraction.HumanResource;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
@@ -37,7 +38,6 @@ public class GenerateProjectFeasibilityHandler extends Handler {
 	private void execute(String Id, ProjectExecutionRequest projectExecutionRequest)
 	{
 		ProjectFeasibilityReport projectFeasibilityReport = new ProjectFeasibilityReport();
-		projectFeasibilityReport.setReportId(Id);
 		projectFeasibilityReport.setProjectName(projectExecutionRequest.getProjectName());
 		
 		Project project = _projectManagementRepo.get(projectExecutionRequest.getProjectName());
@@ -55,7 +55,9 @@ public class GenerateProjectFeasibilityHandler extends Handler {
 			}
 		}
 		
-		_reportRepo.save(projectFeasibilityReport);
+		DocumentInfo doc = new DocumentInfo(Id ,projectFeasibilityReport);
+	    
+		_documentRepo.save(doc);
 	}
 	
 	

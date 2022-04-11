@@ -1,8 +1,10 @@
 package pmo.project.models;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import pmo.project.enums.Status;
 import pmo.project.handlers.request.TaskCreationRequest;
@@ -17,11 +19,13 @@ public class Project {
     private Date _dueDate;
     private int _progress;
 	private String _reasonForStoppage;
+	private List<DocumentInfo> _documents;
     
     public Project(String description, String title, Map<TaskCreationRequest,Integer> requirements) {
     	_description = description;
     	_title = title;
     	_requirements = requirements;
+    	_documents = new ArrayList<DocumentInfo>();
     }
     
     public void setDescription(String description) {
@@ -68,7 +72,7 @@ public class Project {
     	_tasks.add(task);
     }
     
-    public List<TaskDependency> getTaskDependecie() {
+    public List<TaskDependency> getTaskDependecies() {
     	return _tasks;
     }
     
@@ -91,4 +95,14 @@ public class Project {
 	public Map<TaskCreationRequest,Integer> getRequirements() {
 		return _requirements;
 	}
+	
+    public void setDocuments(Object document) {
+    	DocumentInfo doc = new DocumentInfo(UUID.randomUUID().toString(), document);
+    	
+    	_documents.add(doc);
+    }
+    
+    public List<DocumentInfo>  getDocuments() {
+    	return _documents;
+    }
 }

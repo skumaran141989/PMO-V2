@@ -1,4 +1,4 @@
-package pmo.project.handlers.response;
+package pmo.project.models;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,7 +6,6 @@ import java.util.Map;
 public class ProjectFeasibilityReport {
 
 	private Map<String, String> _failureResons;
-	private String _reportId;
 	private String _projectName;
 	
 	public ProjectFeasibilityReport() {
@@ -15,14 +14,6 @@ public class ProjectFeasibilityReport {
 	
 	public Map<String, String> getFailureResons() {
 		return _failureResons;
-	}
-	
-	public void setReportId(String reportId) {
-		_reportId =  reportId;
-	}
-	
-	public String getReportId() {
-		return _reportId;
 	}
 	
 	public void setProjectName(String projectName) {

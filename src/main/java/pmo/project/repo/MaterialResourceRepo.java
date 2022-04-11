@@ -7,7 +7,7 @@ import java.util.Map;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
 
-//NOSQL partitioned on Material resource Type
+//DB partitioned or indexed on Material resource Type
 public class MaterialResourceRepo {
 	 private Map<String, List<MaterialResource>> _materials;
 	 

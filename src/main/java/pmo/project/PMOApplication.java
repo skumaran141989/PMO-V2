@@ -40,7 +40,7 @@ public class PMOApplication {
 	
 	@Bean
 	@Scope("singleton")
-	public ReportRepo getReportRepo() {	
-		return new ReportRepo();
+	public DocumentInfoRepo getDocumentInfoRepo() {	
+		return new DocumentInfoRepo();
 	}
 }

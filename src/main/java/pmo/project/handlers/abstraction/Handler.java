@@ -16,7 +16,7 @@ public abstract class Handler {
 	@Autowired
 	protected TaskManagementRepo _taskManagementRepo;
 	@Autowired
-	protected ReportRepo _reportRepo;
+	protected DocumentInfoRepo _documentRepo;
 	
 	public abstract HandlerResponse process(Object request);
 }

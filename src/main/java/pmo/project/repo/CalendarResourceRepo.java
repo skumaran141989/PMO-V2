@@ -8,7 +8,12 @@ import java.util.Map;
 //Multilevel partitioned Resource Repo
 public class CalendarResourceRepo {
 	private Map<Integer, List<Month>> _years;
-	private List<String> _totalResources;
+	private Map<String, String> _totalResources;
+	
+	public CalendarResourceRepo(){
+		_years = new  HashMap<Integer, List<Month>>();
+		_totalResources = new  HashMap<String, String>();
+	}
 	
 	public List<Month> getMonths(int year) {
 		if(_years==null)
@@ -20,7 +25,12 @@ public class CalendarResourceRepo {
 	
 	static class Month {
 		private Map<Integer, List<Day>> _months;
-		private List<String> _yearlyResources;
+		private Map<String, String> _yearlyResources;
+		
+		public Month(){
+			_months = new  HashMap<Integer, List<Day>>();
+			_yearlyResources = new  HashMap<String, String>();
+		}
 		
 		public List<Day> getDays(int month){
 			if(_months==null)
@@ -32,7 +42,12 @@ public class CalendarResourceRepo {
 		
 		static class Day {
 			private Map<Integer, List<Hour>> _hours;
-			private List<String> _monthlyResources;
+			private Map<String, String> _monthlyResources;
+			
+			public Day(){
+				_hours = new  HashMap<Integer, List<Hour>>();
+				_monthlyResources = new  HashMap<String, String>();
+			}
 			
 			public List<Hour> getHours(int hour){
 				if(_hours==null)
@@ -44,16 +59,21 @@ public class CalendarResourceRepo {
 			}
 			
 			static class Hour {
-				private  Map<Integer, List<String>> _resources;
-				private List<String> _dailyResources;
+				private  Map<Integer, Map<String, String>> _resources;
+				private Map<String, String> _dailyResources;
 				
-				public List<String> getResources(int hour) {
+				public Hour(){
+					_resources = new  HashMap<Integer, Map<String, String>>();
+					_dailyResources = new  HashMap<String, String>();
+				}
+				
+				public Map<String, String> getResources(int hour) {
 					if(_resources==null)
-						_resources = new HashMap<Integer, List<String>>();
+						_resources = new HashMap<Integer, Map<String, String>>();
 					
-					List<String> resources = _resources.get(hour);
+					Map<String, String> resources = _resources.get(hour);
 					
-					return resources==null?new ArrayList<String>():resources;
+					return resources==null?new HashMap<String, String>():resources;
 				}
 			}
 		}

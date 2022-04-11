@@ -3,6 +3,7 @@ package pmo.project.repo;
 import java.util.HashMap;
 import java.util.Map;
 
+//DB partitioned or indexed on project name
 import pmo.project.models.Project;
 
 public class ProjectManagementRepo {
@@ -22,5 +23,9 @@ public class ProjectManagementRepo {
   
   public Project get(String projectName) {
 	  return _projects.get(projectName);
+  }
+  
+  public void delete(String projectTitle) {
+	  _projects.remove(projectTitle);
   }
 }
