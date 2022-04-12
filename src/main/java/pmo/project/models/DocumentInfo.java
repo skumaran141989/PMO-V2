@@ -13,32 +13,32 @@ public class DocumentInfo {
 	
 	public DocumentInfo(String id, Object object)
 	{
-		_docuemtURL = _s3repo.save(object, null);
-		_createDate = new Date();
-		_docId = id;
+		this._docuemtURL = _s3repo.save(object, null);
+		this._createDate = new Date();
+		this._docId = id;
 	}
 
 	public void setDocumentURL(String docuemtURL) {
-		_docuemtURL = docuemtURL;
+		this._docuemtURL = docuemtURL;
 	}
 
 	public String getDocumentURL() {
-		return _docuemtURL;
+		return this._docuemtURL;
 	}
 
 	public void setCreateDate(Date createDate) {
-		_createDate = createDate;
+		this._createDate = createDate;
 	}
 
 	public Date getCreateDate() {
-		return _createDate;
+		return this._createDate;
 	}
 
 	public void setDocumentId(String docId) {
-		_docId = docId;
+		this._docId = docId;
 	}
 
 	public String getDocumentId() {
-		return _docId;
+		return this._docId;
 	}
 }

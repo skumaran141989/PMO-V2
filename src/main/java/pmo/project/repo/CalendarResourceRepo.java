@@ -17,16 +17,16 @@ public class CalendarResourceRepo {
 	private Map<String, List<String>> _totalResources;
 	
 	public CalendarResourceRepo(){
-		_years = new  HashMap<Integer, Month>();
-		_totalResources = new  HashMap<String, List<String>>();
+		this._years = new  HashMap<Integer, Month>();
+		this._totalResources = new  HashMap<String, List<String>>();
 	}
 	
 	public Map<String, List<String>> getTotalResources() {
-		return _totalResources;
+		return this._totalResources;
 	}
 	
 	public Month getMonths(int year) {
-		Month months = _years.get(year);
+		Month months = this._years.get(year);
 		
 		return months==null?new Month():months;
 	}
@@ -44,7 +44,7 @@ public class CalendarResourceRepo {
 	    	resources = new ArrayList<String>();
 	    resources.add(resource);
 		
-		Month months = _years.get(year);
+		Month months = this._years.get(year);
 	    if( months == null)
 		   months = new Month();
 	    resources = months._yearlyResources.get(type);
@@ -78,18 +78,18 @@ public class CalendarResourceRepo {
 		private Map<String, List<String>> _yearlyResources;
 		
 		public Month(){
-			_months = new  HashMap<Integer,Day>();
-			_yearlyResources = new  HashMap<String,List<String>>();
+			this._months = new  HashMap<Integer,Day>();
+			this._yearlyResources = new  HashMap<String,List<String>>();
 		}
 		
 		public Map<String, List<String>> getYearlyResources() {
-			return _yearlyResources;
+			return this._yearlyResources;
 		}
 		
 		public Day getDays(int month){
-			if(_months==null)
-				_months = new HashMap<Integer, Day>();
-			Day days = _months.get(month);
+			if(this._months==null)
+				this._months = new HashMap<Integer, Day>();
+			Day days = this._months.get(month);
 			
 			return days==null?new Day():days;
 		}
@@ -99,19 +99,19 @@ public class CalendarResourceRepo {
 			private Map<String, List<String>> _monthlyResources;
 			
 			public Day(){
-				_hours = new  HashMap<Integer,Hour>();
-				_monthlyResources = new  HashMap<String, List<String>>();
+				this._hours = new  HashMap<Integer,Hour>();
+				this._monthlyResources = new  HashMap<String, List<String>>();
 			}
 			
 			public Map<String, List<String>> getMonthlyResources() {
-				return _monthlyResources;
+				return this._monthlyResources;
 			}
 			
 			public Hour getHours(int hour){
-				if(_hours==null)
-					_hours = new HashMap<Integer, Hour>();
+				if(this._hours==null)
+					this._hours = new HashMap<Integer, Hour>();
 				
-				Hour hours = _hours.get(hour);
+				Hour hours = this._hours.get(hour);
 				
 				return hours==null?new Hour():hours;
 			}
@@ -121,29 +121,29 @@ public class CalendarResourceRepo {
 				private Map<String, List<String>> _dailyResources;
 				
 				public Hour(){
-					_resources = new  HashMap<Integer, Map<String, List<String>>>();
-					_dailyResources = new  HashMap<String,List<String>>();
+					this._resources = new  HashMap<Integer, Map<String, List<String>>>();
+					this._dailyResources = new  HashMap<String,List<String>>();
 				}
 				
 				public Map<String, List<String>> getResources(int hour) {
-					Map<String, List<String>> resources = _resources.get(hour);
+					Map<String, List<String>> resources = this._resources.get(hour);
 					
 					return resources==null?new HashMap<String,List<String>>():resources;
 				}
 				
 				public Map<String, List<String>> getDailyResourcess() {
-					return _dailyResources;
+					return this._dailyResources;
 				}
 				
 				public void setResource(int hour, String type, String resource) {
-					Map<String, List<String>> hourlyresources = _resources.get(hour);
+					Map<String, List<String>> hourlyresources = this._resources.get(hour);
 					hourlyresources = hourlyresources==null?new HashMap<String,List<String>>():hourlyresources;
 					List<String> resources = hourlyresources.get(type);
 				    if( resources == null)
 				    	resources = new ArrayList<String>();
 				    resources.add(resource);
 				    hourlyresources.put(type, resources);
-				    _resources.put(hour, hourlyresources);
+				    this._resources.put(hour, hourlyresources);
 				}
 			}
 		}

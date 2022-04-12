@@ -7,15 +7,15 @@ public class Slot {
 	private Date _endDate;
 	
 	public Slot(Date startDate, Date endDate) {
-		_startDate = startDate;
-		_endDate = endDate;
+		this._startDate = startDate;
+		this._endDate = endDate;
 	}
 	
 	public boolean isSlotWithinRange(Date startDate, Date endDate) {
-		if(startDate.after(_startDate) && startDate.before(_endDate))
+		if(startDate.after(this._startDate) && startDate.before(this._endDate))
 			return true;
 		
-		if(endDate.after(_startDate) && endDate.before(_endDate))
+		if(endDate.after(this._startDate) && endDate.before(this._endDate))
 			return true;
 		
 		return false;

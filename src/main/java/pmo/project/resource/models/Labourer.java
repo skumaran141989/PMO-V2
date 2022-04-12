@@ -7,8 +7,8 @@ public class Labourer extends HumanResource {
 	public int _experience;
 	
 	public Labourer(String skillSet, int experience, String firstName, String lastName, long id, String contactNumber, double salary) {
-		_skill = skillSet;
-		_experience = experience;
+		this._skill = skillSet;
+		this._experience = experience;
 		
 		super.setContactNumber(contactNumber);
 		super.setFirstName(firstName);
@@ -18,18 +18,18 @@ public class Labourer extends HumanResource {
 	}
 	
 	public void setSkill(String skill) {
-		_skill=skill;
+		this._skill=skill;
 	}
 	
 	public String getSkillSet() {
-		return _skill;
+		return this._skill;
 	}
 	
 	public void setExperience(int experience) {
-		_experience = experience;
+		this._experience = experience;
 	}
 	
 	public int getExperience() {
-		return _experience;
+		return this._experience;
 	}
 }

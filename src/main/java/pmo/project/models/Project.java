@@ -22,87 +22,87 @@ public class Project {
 	private List<DocumentInfo> _documents;
     
     public Project(String description, String title, Map<TaskCreationRequest,Integer> requirements) {
-    	_description = description;
-    	_title = title;
-    	_requirements = requirements;
-    	_documents = new ArrayList<DocumentInfo>();
+    	this._description = description;
+    	this._title = title;
+    	this._requirements = requirements;
+    	this._documents = new ArrayList<DocumentInfo>();
     }
     
     public void setDescription(String description) {
-    	_description = description;
+    	this._description = description;
     }
     
     public String getDescription() {
-    	return _description;
+    	return this._description;
     }
     
     public void setTitle(String title) {
-    	_title = title;
+    	this._title = title;
     }
     
     public String getTitle() {
-    	return _title;
+    	return this._title;
     }
     
     public void setStatus(Status status) {
-    	_status = status;
+    	this._status = status;
     }
     
     public Status getStatus() {
-    	return _status;
+    	return this._status;
     }
     
     public void setStartDate(Date startDate) {
-    	_startDate = startDate;
+    	this._startDate = startDate;
     }
     
     public Date getStartDate() {
-    	return _startDate;
+    	return this._startDate;
     }
     
     public void setDueDate(Date dueDate) {
-    	_dueDate = dueDate;
+    	this._dueDate = dueDate;
     }
     
     public Date getDueDate() {
-    	return _dueDate;
+    	return this._dueDate;
     }
     
     public void setTaskDependecies(TaskDependency task) {
-    	_tasks.add(task);
+    	this._tasks.add(task);
     }
     
     public List<TaskDependency> getTaskDependecies() {
-    	return _tasks;
+    	return this._tasks;
     }
     
 	public void setProgress(int progress) {
-		_progress = progress;
+		this._progress = progress;
 	}
 	
 	public int getProgress() {
-		return _progress;
+		return this._progress;
 	}
 	
 	public void setReasonForStoppage(String reasonForStoppage) {
-		_reasonForStoppage = reasonForStoppage;
+		this._reasonForStoppage = reasonForStoppage;
 	}
 	
 	public String getReasonForStoppage() {
-		return _reasonForStoppage;
+		return this._reasonForStoppage;
 	}
 	
 	public Map<TaskCreationRequest,Integer> getRequirements() {
-		return _requirements;
+		return this._requirements;
 	}
 	
     public void setDocuments(Object document) {
     	DocumentInfo doc = new DocumentInfo(UUID.randomUUID().toString(), document);
     	
-    	_documents.add(doc);
+    	this._documents.add(doc);
     }
     
     public List<DocumentInfo>  getDocuments() {
-    	return _documents;
+    	return this._documents;
     }
 }

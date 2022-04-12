@@ -8,27 +8,26 @@ public class ProjectExecutionRequest {
     private Date _dueDate;
     
     public String getProjectName() {
-    	return _projectName;
+    	return this._projectName;
     }
     
     public void setProjectName(String projectName) {
-    	_projectName = projectName;
+    	this._projectName = projectName;
     }
     
-    
     public void setStartDate(Date startDate) {
-    	_startDate = startDate;
+    	this._startDate = startDate;
     }
     
     public Date getStartDate() {
-    	return _startDate;
+    	return this._startDate;
     }
     
     public void setDueDate(Date dueDate) {
-    	_dueDate = dueDate;
+    	this._dueDate = dueDate;
     }
     
     public Date getDueDate() {
-    	return _dueDate;
+    	return this._dueDate;
     }
 }

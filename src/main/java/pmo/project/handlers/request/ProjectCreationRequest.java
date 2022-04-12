@@ -12,46 +12,46 @@ public class ProjectCreationRequest {
     private Date _dueDate;
     
     public ProjectCreationRequest() {
-    	_taskRequests = new HashMap<TaskCreationRequest, Integer>();
+    	this._taskRequests = new HashMap<TaskCreationRequest, Integer>();
     }
     
     public void setName(String name) {
-    	_name = name;
+    	this._name = name;
     }
     
     public String getName() {
-    	return _name;
+    	return this._name;
     }
     
     public void setDescription(String description) {
-    	_description = description;
+    	this._description = description;
     }
     
     public String getDescription() {
-    	return _description;
+    	return this._description;
     }
     
     public void setTaskrequests(TaskCreationRequest taskrequest, int weight) {
-    	_taskRequests.put(taskrequest, weight);
+    	this._taskRequests.put(taskrequest, weight);
     }
     
     public Map<TaskCreationRequest, Integer> getTaskrequests() {
-    	return _taskRequests;
+    	return this._taskRequests;
     }
     
     public void setStartDate(Date startDate) {
-    	_startDate = startDate;
+    	this._startDate = startDate;
     }
     
     public Date getStartDate() {
-    	return _startDate;
+    	return this._startDate;
     }
     
     public void setDueDate(Date dueDate) {
-    	_dueDate = dueDate;
+    	this._dueDate = dueDate;
     }
     
     public Date getDueDate() {
-    	return _dueDate;
+    	return this._dueDate;
     }
 }

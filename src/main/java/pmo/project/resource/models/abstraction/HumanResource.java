@@ -20,77 +20,77 @@ public abstract class HumanResource {
 	private UserCalendarRepo _usercalendar;
 	
 	public void setFirstName(String firstName) {
-		_firstName = firstName;
+		this._firstName = firstName;
 	}
 	
 	public String getTaskProgress() {
-		return _firstName;
+		return this._firstName;
 	}
 	
 	public void setLastName(String lastName) {
-		_lastName = lastName;
+		this._lastName = lastName;
 	}
 	
 	public String getLastName() {
-		return _lastName;
+		return this._lastName;
 	}
 	
 	public void setId(long id) {
-		_id = id;
+		this._id = id;
 	}
 	
 	public long getId() {
-		return _id;
+		return this._id;
 	}
 	
 	public void setContactNumber(String contactNumber) {
-		_contactNumber = contactNumber;
+		this._contactNumber = contactNumber;
 	}
 	
 	public String getContactNumber() {
-		return _contactNumber;
+		return this._contactNumber;
 	}
 	
 	public void setSalary(double salary) {
-		_salary = salary;
+		this._salary = salary;
 	}
 	
 	public double getSalary() {
-		return _salary;
+		return this._salary;
 	}
 	
 	public List<Task> getTasks() {
-		if (_tasks==null)
-			_tasks = new ArrayList<Task>();
+		if (this._tasks==null)
+			this._tasks = new ArrayList<Task>();
 		
-		return _tasks;
+		return this._tasks;
 	}
 	
 	public void setIsUsable(boolean isUsable) {
 		
-		if(isUsable==true && !_tasks.isEmpty())
-		for(Task task : _tasks)
+		if(isUsable==true && !this._tasks.isEmpty())
+		for(Task task : this._tasks)
 		   task.setReasonForStoppage("Resource "+_id+" unavailable.");
 			
-		_isUsable = isUsable;
+		this._isUsable = isUsable;
 	}
 	
 	public boolean getIsUsable() {
-		return _isUsable;
+		return this._isUsable;
 	}
 	
 	public  List<Slot> getSlots(){
-		if(_slots==null)
-			_slots = new ArrayList<Slot>();
-		return _slots;
+		if(this._slots==null)
+			this._slots = new ArrayList<Slot>();
+		return this._slots;
 	}
 	
 	public boolean allocate(Date startDate, Date dueDate) {
-		if(_slots==null)
-			_slots = new ArrayList<Slot>();
-	    for(Slot slot: _slots)
+		if(this._slots==null)
+			this._slots = new ArrayList<Slot>();
+	    for(Slot slot: this._slots)
 	    	if(!slot.isSlotWithinRange(startDate, dueDate))
-	    		_slots.add(new Slot(startDate, dueDate));
+	    		this._slots.add(new Slot(startDate, dueDate));
 	    	else
 	    		return false;
 
@@ -98,6 +98,6 @@ public abstract class HumanResource {
 	}
 	
 	public UserCalendarRepo getUserCalendar() {
-		return _usercalendar;
+		return this._usercalendar;
 	}
 }

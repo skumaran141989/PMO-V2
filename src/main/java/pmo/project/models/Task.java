@@ -27,135 +27,135 @@ public class Task {
 	private List<DocumentInfo> _documents;
 	
 	public Task(String description, String title, long timeTaken, Project assignedProject, Task parentTask, int taskWeight) {
-		_description = description;
-		_title = title;
-		_assignedProject = assignedProject;
-		_parentTask = parentTask;
-		_taskWeight = taskWeight;
-		_timeTaken = timeTaken;
-		_documents = new ArrayList<DocumentInfo>();
+		this._description = description;
+		this._title = title;
+		this._assignedProject = assignedProject;
+		this._parentTask = parentTask;
+		this._taskWeight = taskWeight;
+		this._timeTaken = timeTaken;
+		this._documents = new ArrayList<DocumentInfo>();
 	}
 	
     public void setDescription(String description) {
-    	_description = description;
+    	this._description = description;
     }
     
     public String getDescription() {
-    	return _description;
+    	return this._description;
     }
     
     public void setTitle(String title) {
-    	_title = title;
+    	this._title = title;
     }
     
     public String getTitle() {
-    	return _title;
+    	return this._title;
     }
 	
 	public void setStatus(Status status) {
-		_status = status;
+		this._status = status;
 		
 		if(status==Status.COMPLETED) {
-			_progress = 100;
-			if(_parentTask!=null)
-				_parentTask.setProgress( _taskWeight+ _parentTask.getProgress());
+			this._progress = 100;
+			if(this._parentTask!=null)
+				this._parentTask.setProgress( this._taskWeight+ this._parentTask.getProgress());
 			else if(_assignedProject!=null)
-				_assignedProject.setProgress( _taskWeight+ _assignedProject.getProgress());
+				this._assignedProject.setProgress( this._taskWeight+ this._assignedProject.getProgress());
 		}
 	}
 	
 	public Status getStatus() {
-		return _status;
+		return this._status;
 	}
 	
     public void setTaskDependecies(TaskDependency task) {
-    	_tasks.add(task);
+    	this._tasks.add(task);
     }
     
     public List<TaskDependency> getTaskDependecies() {
-    	return _tasks;
+    	return this._tasks;
     }
     
     public void setHumanResources(HumanResource resource) {
-    	_humanResources.add(resource);
+    	this._humanResources.add(resource);
     }
     
     public List<HumanResource> getHumanResources() {
-    	return _humanResources;
+    	return this._humanResources;
     }
     
     public void setMaterialResources(MaterialResource resource) {
-    	_materialResources.add(resource);
+    	this._materialResources.add(resource);
     }
     
     public List<MaterialResource> getMaterialResources() {
-    	return _materialResources;
+    	return this._materialResources;
     }
     
 	public void setProgress(int progress) {
-		_progress = progress;
+		this._progress = progress;
 	}
 	
 	public int getProgress() {
-		return _progress;
+		return this._progress;
 	}
 	
 	public void setStartDate(Date startDate) {
-		_startDate = startDate;
+		this._startDate = startDate;
 	}
 	
 	public Date getStartDate() {
-		return _startDate;
+		return this._startDate;
 	}
 	
 	public void setExpectedCompletionDate(Date expectedCompletionDate) {
-		_expectedCompletionDate = expectedCompletionDate;
+		this._expectedCompletionDate = expectedCompletionDate;
 	}
 	
 	public Date getExpectedCompletionDate() {
-		return _expectedCompletionDate;
+		return this._expectedCompletionDate;
 	}
 	
 	public void setReasonForStoppage(String reasonForStoppage) {
-		if(_parentTask!=null)
-			_parentTask.setReasonForStoppage( _parentTask.getReasonForStoppage().concat(reasonForStoppage));
-		if(_assignedProject!=null)
-			_assignedProject.setReasonForStoppage(_assignedProject.getReasonForStoppage().concat(reasonForStoppage));
+		if(this._parentTask!=null)
+			this._parentTask.setReasonForStoppage( this._parentTask.getReasonForStoppage().concat(reasonForStoppage));
+		if(this._assignedProject!=null)
+			this._assignedProject.setReasonForStoppage(this._assignedProject.getReasonForStoppage().concat(reasonForStoppage));
 		
-		_reasonForStoppage = reasonForStoppage;
+		this._reasonForStoppage = reasonForStoppage;
 	}
 	
 	public String getReasonForStoppage() {
-		return _reasonForStoppage;
+		return this._reasonForStoppage;
 	}
 	
 	public void setAssignedProject(Project assignedProject) {
-		_assignedProject = assignedProject;
+		this._assignedProject = assignedProject;
 	}
 	
 	public Project getAssignedProject() {
-		return _assignedProject;
+		return this._assignedProject;
 	}
 	
 	public Task getParentTaskProject() {
-		return _parentTask;
+		return this._parentTask;
 	}
 	
     public void setTimeTaken(int timeTaken) {
-    	_timeTaken = timeTaken;
+    	this._timeTaken = timeTaken;
     }
     
     public long getTimeTaken() {
-    	return _timeTaken;
+    	return this._timeTaken;
     }
     
     public void setDocuments(Object document) {
     	DocumentInfo doc = new DocumentInfo(UUID.randomUUID().toString() ,document);
     	
-    	_documents.add(doc);
+    	this._documents.add(doc);
     }
     
     public List<DocumentInfo>  getDocuments() {
-    	return _documents;
+    	return this._documents;
     }
 }

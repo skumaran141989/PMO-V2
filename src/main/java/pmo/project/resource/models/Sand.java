@@ -6,7 +6,7 @@ public class Sand extends MaterialResource {
 	private double _granularity;
 	
 	public Sand(double granularity, String brandName, long metricValue, double price) {
-		_granularity = granularity;
+		this._granularity = granularity;
 		
 		super.setBrandName(brandName);
 		super.setMetric(metricValue);
@@ -14,10 +14,10 @@ public class Sand extends MaterialResource {
 	}
 	
 	public void setGranularity(double granularity) {
-		_granularity = granularity;
+		this._granularity = granularity;
 	}
 	
 	public double getGranularity() {
-		return _granularity;
+		return this._granularity;
 	}
 }

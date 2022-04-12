@@ -5,19 +5,19 @@ public class TaskDependency {
      private int _weight;
      
      public TaskDependency(Task task, int weight) {
-    	 _task = task;
-    	 _weight = weight;
+    	 this._task = task;
+    	 this._weight = weight;
      }
      
      public void setTask(Task task) {
-    	 _task = task;
+    	 this._task = task;
      }
      
      public Task getTask() {
-     	return _task;
+     	return this._task;
      } 
      
      public int getWeight() {
-      	return _weight;
+      	return this._weight;
      } 
 }

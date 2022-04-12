@@ -7,8 +7,8 @@ public class Brick extends MaterialResource {
 	private String _color;
 	
 	public Brick(String strengthGrade, String color, String brandName, long metricValue, double price) {
-		_strengthGrade = strengthGrade;
-		_color= color;
+		this._strengthGrade = strengthGrade;
+		this._color= color;
 		
 		super.setBrandName(brandName);
 		super.setMetric(metricValue);
@@ -16,18 +16,18 @@ public class Brick extends MaterialResource {
 	}
 	
 	public void setStrengthGrade(String strengthGrade) {
-		_strengthGrade = strengthGrade;
+		this._strengthGrade = strengthGrade;
 	}
 	
 	public String getStrengthGrade() {
-		return _strengthGrade;
+		return this._strengthGrade;
 	}
 	
 	public void setColor(String color) {
-		_color = color;
+		this._color = color;
 	}
 	
 	public String getColor() {
-		return _color;
+		return this._color;
 	}
 }

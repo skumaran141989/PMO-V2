@@ -11,23 +11,23 @@ public class DocumentInfoRepo {
   private static S3Repo _s3repo = new S3Repo();
   
   public DocumentInfoRepo() {
-	  _documents = new HashMap<String, DocumentInfo>();
+	  this._documents = new HashMap<String, DocumentInfo>();
   }
   
   public void save(DocumentInfo doc) {
 	  doc.setDocumentURL(_s3repo.save(doc, null));
-	  _documents.put(doc.getDocumentId(), doc);
+	  this._documents.put(doc.getDocumentId(), doc);
   }
   
   public Map<String, DocumentInfo> getAll() {
-	  return _documents;
+	  return this._documents;
   }
   
   public DocumentInfo get(String docId) {
-	  return _documents.get(docId);
+	  return this._documents.get(docId);
   }
   
   public void delete(String docId) {
-	  _documents.remove(docId);
+	  this._documents.remove(docId);
   }
 }

@@ -9,18 +9,18 @@ public class ProjectFeasibilityReport {
 	private String _projectName;
 	
 	public ProjectFeasibilityReport() {
-		_failureResons = new HashMap<String, String>();
+		this._failureResons = new HashMap<String, String>();
 	}
 	
 	public Map<String, String> getFailureResons() {
-		return _failureResons;
+		return this._failureResons;
 	}
 	
 	public void setProjectName(String projectName) {
-		_projectName =  projectName;
+		this._projectName =  projectName;
 	}
 	
 	public String getProjectName() {
-		return _projectName;
+		return this._projectName;
 	}
 }

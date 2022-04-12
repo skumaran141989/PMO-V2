@@ -14,11 +14,11 @@ public class UserCalendarRepo {
 	private Map<Integer, Month> _years;
 	
 	public UserCalendarRepo(){
-		_years = new  HashMap<Integer, Month>();
+		this._years = new  HashMap<Integer, Month>();
 	}
 	
 	public Month getMonths(int year) {
-		Month months = _years.get(year);
+		Month months = this._years.get(year);
 		
 		return months==null?new Month():months;
 	}
@@ -31,7 +31,7 @@ public class UserCalendarRepo {
 		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 		
-		Month months = _years.get(year);
+		Month months = this._years.get(year);
 	    if( months == null)
 		   months = new Month();
 		Day days = months.getDays(month);
@@ -54,18 +54,18 @@ public class UserCalendarRepo {
 		private int _yearlyHours;
 		
 		public Month(){
-			_months = new  HashMap<Integer,Day>();
-			_yearlyHours = 8784;
+			this._months = new  HashMap<Integer,Day>();
+			this._yearlyHours = 8784;
 		}
 		
 		public int getYearlyHours() {
-			return _yearlyHours;
+			return this._yearlyHours;
 		}
 		
 		public Day getDays(int month){
 			if(_months==null)
-				_months = new HashMap<Integer, Day>();
-			Day days = _months.get(month);
+				this._months = new HashMap<Integer, Day>();
+			Day days = this._months.get(month);
 			
 			return days==null?new Day():days;
 		}
@@ -75,19 +75,19 @@ public class UserCalendarRepo {
 			private int _monthlyHours;
 			
 			public Day(){
-				_hours = new  HashMap<Integer,Hour>();
-				_monthlyHours = 744;
+				this._hours = new  HashMap<Integer,Hour>();
+				this._monthlyHours = 744;
 			}
 			
 			public int getMonthlyResources() {
-				return _monthlyHours;
+				return this._monthlyHours;
 			}
 			
 			public Hour getHours(int hour){
-				if(_hours==null)
-					_hours = new HashMap<Integer, Hour>();
+				if(this._hours==null)
+					this._hours = new HashMap<Integer, Hour>();
 				
-				Hour hours = _hours.get(hour);
+				Hour hours = this._hours.get(hour);
 				
 				return hours==null?new Hour():hours;
 			}
@@ -97,19 +97,19 @@ public class UserCalendarRepo {
 				private int _dailyHours;
 				
 				public Hour(){
-					_isAvailable = new  HashMap<Integer, Boolean>();
-					_dailyHours = 24;
+					this._isAvailable = new  HashMap<Integer, Boolean>();
+					this._dailyHours = 24;
 				}
 				
 				public Boolean getHourAvailability(int hour) {
-					return _isAvailable.get(hour);
+					return this._isAvailable.get(hour);
 				}
 				int getDailyResourcess() {
-					return _dailyHours;
+					return this._dailyHours;
 				}
 				
 				public void setHourAvailability(int hour, boolean isAvailable) {
-					_isAvailable.put(hour, isAvailable);
+					this._isAvailable.put(hour, isAvailable);
 				}
 			}
 		}

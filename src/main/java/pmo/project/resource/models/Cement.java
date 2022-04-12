@@ -6,7 +6,7 @@ public class Cement extends MaterialResource {
 	private double _granularityStrength;
 	
 	public Cement(double granularityStrength, String brandName, long metricValue, double price) {
-		_granularityStrength = granularityStrength;
+		this._granularityStrength = granularityStrength;
 		
 		super.setBrandName(brandName);
 		super.setMetric(metricValue);
@@ -14,10 +14,10 @@ public class Cement extends MaterialResource {
 	}
 	
 	public void setGranularityStrength(double granularityStrength) {
-		_granularityStrength = granularityStrength;
+		this._granularityStrength = granularityStrength;
 	}
 	
 	public double getGranularityStrength() {
-		return _granularityStrength;
+		return this._granularityStrength;
 	}
 }

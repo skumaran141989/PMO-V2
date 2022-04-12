@@ -7,8 +7,8 @@ public class Tiles extends MaterialResource {
 	private String _color;
 	
 	public Tiles(String grade, String color, String brandName, long metricValue, double price) {
-		_grade = grade;
-		_color = color;
+		this._grade = grade;
+		this._color = color;
 		
 		super.setBrandName(brandName);
 		super.setMetric(metricValue);
@@ -16,18 +16,18 @@ public class Tiles extends MaterialResource {
 	}
 	
 	public void seGrade(String grade) {
-		_grade = grade;
+		this._grade = grade;
 	}
 	
 	public String getGrade() {
-		return _grade;
+		return this._grade;
 	}
 	
 	public void setColor(String color) {
-		_color = color;
+		this._color = color;
 	}
 	
 	public String getColor() {
-		return _color;
+		return this._color;
 	}
 }

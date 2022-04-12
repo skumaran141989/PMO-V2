@@ -9,51 +9,51 @@ public abstract class MaterialResource {
 	private boolean _isUsable;
 	
 	public MaterialResource() {
-		_utilized = false; 
+		this._utilized = false; 
 	}
 	
 	public void setBrandName(String brandName) {
-		_brandName = brandName;
+		this._brandName = brandName;
 	}
 	
 	public String getBrandName() {
-		return _brandName;
+		return this._brandName;
 	}
 	
 	public void setMetric(long metricValue) {
-		_metricValue = metricValue;
+		this._metricValue = metricValue;
 	}
 	
 	public long getMetric() {
-		return _metricValue;
+		return this._metricValue;
 	}
 	
 	public void setPrice(double price) {
-		_price = price;
+		this._price = price;
 	}
 	
 	public double getPrice() {
-		return _price;
+		return this._price;
 	}
 	
 	public void setUtilized(boolean utilized) {
-		_utilized = utilized;
+		this._utilized = utilized;
 	}
 	
 	public boolean getUtilized() {
-		return _utilized;
+		return this._utilized;
 	}
 	
 	public void setIsUsable(boolean isUsable) {
-		_isUsable = isUsable;
+		this._isUsable = isUsable;
 	}
 	
 	public boolean getIsUsable() {
-		return _isUsable;
+		return this._isUsable;
 	}
 	
 	public boolean consume() {
-		_utilized = !_utilized;
-	    return _utilized;
+		this._utilized = !this._utilized;
+	    return this._utilized;
 	}
 }

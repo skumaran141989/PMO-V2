@@ -8,20 +8,20 @@ public class ParsedDate {
    public ParsedDate(String date) {
 	   String[] prasedDate = date.split("-");
 	   
-	   _date = Integer.parseInt(prasedDate[0]);
-	   _month = Integer.parseInt(prasedDate[1]);
-	   _date = Integer.parseInt(prasedDate[2]);
+	   this._date = Integer.parseInt(prasedDate[0]);
+	   this._month = Integer.parseInt(prasedDate[1]);
+	   this._date = Integer.parseInt(prasedDate[2]);
    }
    
    public int getYear() {
-	   return _year;
+	   return this._year;
    }
    
    public int getMonth() {
-	   return _month;
+	   return this._month;
    }
    
    public int getDate() {
-	   return _date;
+	   return this._date;
    }
 }

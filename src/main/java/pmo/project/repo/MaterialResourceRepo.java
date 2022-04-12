@@ -12,31 +12,31 @@ public class MaterialResourceRepo {
 	 private Map<String, List<MaterialResource>> _materials;
 	 
 	  public MaterialResourceRepo() {
-		  _materials = new HashMap<String, List<MaterialResource>>();
+		  this._materials = new HashMap<String, List<MaterialResource>>();
 	  }
 	
 	  public void save(MaterialResource resource) {
-		  List<MaterialResource> resourceList = _materials.get(resource.getClass().toString());
+		  List<MaterialResource> resourceList = this._materials.get(resource.getClass().toString());
 		  
 		  if (resourceList==null)
 			  resourceList = new ArrayList<MaterialResource>();
 		  else
 			  resourceList.add(resource);
 		  
-		  _materials.put(resource.getClass().toString(), resourceList);
+		  this._materials.put(resource.getClass().toString(), resourceList);
 	  }
 	  
 	  public void delete(MaterialResource resource ) {
 		  
-		  List<MaterialResource> resourceList =  _materials.get(resource.getClass().toString());
+		  List<MaterialResource> resourceList = this._materials.get(resource.getClass().toString());
 		  
 		  if (resourceList!=null) {
 			  resourceList.remove(resource);
-			  _materials.put(resource.getClass().toString(), resourceList);
+			  this._materials.put(resource.getClass().toString(), resourceList);
 		  }
 	  }
 	  
 	  public  List<MaterialResource> get(String type) {
-		  return _materials.get(type);
+		  return this._materials.get(type);
 	  }
 }

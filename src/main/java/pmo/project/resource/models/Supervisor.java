@@ -7,8 +7,8 @@ public class Supervisor extends HumanResource {
 	private boolean _certfied;
 	
 	public Supervisor(int supervisingExperience, boolean certfied, String firstName, String lastName, long id, String contactNumber, double salary) {
-		_supervisingExperience = supervisingExperience;
-		_certfied = certfied;
+		this._supervisingExperience = supervisingExperience;
+		this._certfied = certfied;
 	
 		super.setContactNumber(contactNumber);
 		super.setFirstName(firstName);
@@ -18,18 +18,18 @@ public class Supervisor extends HumanResource {
 	}
 	
 	public void setSupervisingExperience(int supervisingExperience) {
-		_supervisingExperience = supervisingExperience;
+		this._supervisingExperience = supervisingExperience;
 	}
 	
 	public int getSupervisingExperience() {
-		return _supervisingExperience;
+		return this._supervisingExperience;
 	}
 	
 	public void setCertfication(boolean certfied) {
-		_certfied = certfied;
+		this._certfied = certfied;
 	}
 	
 	public boolean getCertfication() {
-		return _certfied;
+		return this._certfied;
 	}
 }
