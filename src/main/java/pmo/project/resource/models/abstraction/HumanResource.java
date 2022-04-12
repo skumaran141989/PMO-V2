@@ -79,6 +79,12 @@ public abstract class HumanResource {
 		return _isUsable;
 	}
 	
+	public  List<Slot> getSlots(){
+		if(_slots==null)
+			_slots = new ArrayList<Slot>();
+		return _slots;
+	}
+	
 	public boolean allocate(Date startDate, Date dueDate) {
 		if(_slots==null)
 			_slots = new ArrayList<Slot>();

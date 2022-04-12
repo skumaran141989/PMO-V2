@@ -17,6 +17,7 @@ import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.models.DocumentInfo;
 import pmo.project.models.Project;
 import pmo.project.models.ProjectFeasibilityReport;
+import pmo.project.models.Slot;
 import pmo.project.resource.models.abstraction.HumanResource;
 import pmo.project.resource.models.abstraction.MaterialResource;
 
@@ -89,7 +90,7 @@ public class GenerateProjectFeasibilityHandler extends Handler {
 				if(allocatedMaterialResources.size()==quantity)
 					break;
 				
-				if(resource.consume()) {
+				if(isConsumable(resource)) {
 					allocatedMaterialResources.add(resource);
 				}
 			}
@@ -110,12 +111,25 @@ public class GenerateProjectFeasibilityHandler extends Handler {
 				if(allocatedHumanResources.size()==quantity)
 					break;
 				
-				if(resource.allocate(startDate, dueDate))
+				if(isAllocatable(resource, startDate, dueDate))
 					allocatedHumanResources.add(resource);
 			}
 			
 			if(allocatedMaterialResources.size()<quantity)
 				handlerResponse.getFailureResons().put(taskRequest.getName(), "Insufficient human resource of type "+ type);
 		}
+	}
+	
+	private boolean isConsumable(MaterialResource resource) {
+		return !resource.getUtilized();
+	}
+	
+	private boolean isAllocatable(HumanResource resource, Date startDate, Date dueDate) {
+		List<Slot> slots = resource.getSlots();
+	    for(Slot slot: slots)
+	    	if(slot.isSlotWithinRange(startDate, dueDate))
+	    		return false;
+
+	    return true;
 	}
 }
