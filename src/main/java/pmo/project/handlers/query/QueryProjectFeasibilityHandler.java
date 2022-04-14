@@ -38,6 +38,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		Map<Integer, Date> levelStartDates= new HashMap<Integer, Date> ();
 		levelStartDates.put(-1, projectExecutionRequest.getStartDate());
 		HashSet<Long> processTasks = new HashSet<Long>();
+		if(tasks!=null)
 		for(Long taskId : tasks) {
 			if(!estimateAllocateResources(taskId, projectExecutionRequest.getDueDate(), 0, levelStartDates, processTasks, output))
 				return false;
@@ -50,6 +51,8 @@ public class QueryProjectFeasibilityHandler extends Handler {
 	private boolean estimateAllocateResources(Long taskId, Date dueDate, int blockingtasksremaining, Map<Integer, Date> levelStartDates, HashSet<Long> processTasks, StringBuilder output) {
 		List<Long> blockingtasks = _taskManagementService.getBlockingTask(taskId);
 		Task task = _taskManagementService.getTaskById(taskId);
+		
+		if(blockingtasks!=null)
 		for(Long blockingtask : blockingtasks) {
 			if(!estimateAllocateResources(blockingtask, dueDate, blockingtasksremaining+1, levelStartDates, processTasks, output))
 				return false;
@@ -73,6 +76,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		List<TaskRequirement> humanResourcesRequirements = _taskManagementService.getTaskRequirements(taskId, "Human");
 		List<TaskRequirement> materialResourcesRequirements = _taskManagementService.getTaskRequirements(taskId, "Material");
 		
+		if(humanResourcesRequirements!=null)
 		for(TaskRequirement requirement: humanResourcesRequirements) {
 			int count = _humanResourceService.getAvailableHumanResources(requirement.getSubType(), levelDate, completionDate).size();
 			if(count<requirement.getQuantity()){
@@ -81,6 +85,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 			}	
 		}
 		
+		if(materialResourcesRequirements!=null)
 		for(TaskRequirement requirement: materialResourcesRequirements) {
 			int count = _materialResourceService.getAvailableMaterialResources(requirement.getSubType()).size();
 			if(count<requirement.getQuantity()) {
