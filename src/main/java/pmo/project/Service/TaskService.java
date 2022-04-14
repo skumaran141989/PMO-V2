@@ -11,6 +11,7 @@ import pmo.project.repo.TaskManagementRepo;
 import pmo.project.repo.TaskRequirementRepo;
 import pmo.project.repo.models.Task;
 import pmo.project.repo.models.TaskRequirement;
+import pmo.project.utilities.Constant;
 
 public class TaskService {
 	private TaskManagementRepo _taskManagementRepo;
@@ -33,7 +34,7 @@ public class TaskService {
 					TaskRequirement requirement = new TaskRequirement();
 						requirement.setProjectId(task.getProjectId());
 						requirement.setTaskId(taskId);
-						requirement.setType("Human");
+						requirement.setType(Constant.HUMAN_LABEL);
 					    requirement.setSubType(entry.getKey());
 					    requirement.setQuantity(entry.getValue());
 					    this._taskRequirementRepo.save(requirement);
@@ -43,7 +44,7 @@ public class TaskService {
 				for(Entry<String, Integer> entry : entries) {
 					TaskRequirement requirement = new TaskRequirement();
 						requirement.setProjectId(task.getProjectId());
-						requirement.setType("Material");
+						requirement.setType(Constant.MATERIAL_LABEL);
 						requirement.setTaskId(taskId);
 					    requirement.setSubType(entry.getKey());
 					    requirement.setQuantity(entry.getValue());
@@ -55,27 +56,27 @@ public class TaskService {
 	}
 	
 	public Task getTaskById(long id){
-		return _taskManagementRepo.get(id);
+		return this._taskManagementRepo.get(id);
 	}
 	
 	//this will be a query in real time
 	public Task getTaskByName(String name){
-		return _taskManagementRepo.getAll().values().stream().filter(project->project.getTitle().equals(name)).findFirst().get();
+		return this._taskManagementRepo.getAll().values().stream().filter(project->project.getTitle().equals(name)).findFirst().get();
 	}
 	
 	//this will be a query in real time
 	public List<Long> getTaskDocuments(long id){
-		return _documentRepo.getAll().values().stream().filter(doc->doc.getReferencId()==id && doc.getReferencType().equals("Task")).map(doc->doc.getId()).collect(Collectors.toList());
+		return this._documentRepo.getAll().values().stream().filter(doc->doc.getReferencId()==id && doc.getReferencType().equals(Constant.TASK_LABEL)).map(doc->doc.getId()).collect(Collectors.toList());
 	}
 	
 	//this will be a query in real time
 	public List<Long> getBlockingTask(long id){
-		return _taskManagementRepo.getAll().values().stream().filter(task->task.getBlockingTaskId()==id).map(task->task.getId()).collect(Collectors.toList());
+		return this._taskManagementRepo.getAll().values().stream().filter(task->task.getBlockingTaskId()==id).map(task->task.getId()).collect(Collectors.toList());
 	}
 	
 	//this will be a query in real time
 	public List<TaskRequirement> getTaskRequirements(long id, String type){
-		return _taskRequirementRepo.getAll().values().stream().filter(requirements->requirements.getTaskId()==id && requirements.getType().equals(type))
+		return this._taskRequirementRepo.getAll().values().stream().filter(requirements->requirements.getTaskId()==id && requirements.getType().equals(type))
 				.collect(Collectors.toList());
 	} 
 }

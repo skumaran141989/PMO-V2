@@ -19,6 +19,6 @@ public class SaveMaterialResourceHandler extends Handler {
 	
 	private void execute(MaterialResource resource)
 	{
-		_materialResourceService.createMaterialResource(resource);
+		this._materialResourceService.createMaterialResource(resource);
 	}
 }

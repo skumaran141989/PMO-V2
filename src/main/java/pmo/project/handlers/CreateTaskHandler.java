@@ -19,6 +19,6 @@ public class CreateTaskHandler extends Handler {
 	}   
 	
 	private void execute(TaskCreationRequest taskCreationRequest) {
-		_taskManagementService.createTask(taskCreationRequest);
+		this._taskManagementService.createTask(taskCreationRequest);
     }
 }

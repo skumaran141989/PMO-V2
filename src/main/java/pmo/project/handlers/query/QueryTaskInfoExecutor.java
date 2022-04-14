@@ -13,7 +13,7 @@ public class QueryTaskInfoExecutor extends Handler {
 		
 			String TaskId = (String) request;
 		
-			Task task = _taskManagementService.getTaskByName(TaskId);
+			Task task = this._taskManagementService.getTaskByName(TaskId);
 			response.setObject(task);
 		}
 		catch(Exception ex) {

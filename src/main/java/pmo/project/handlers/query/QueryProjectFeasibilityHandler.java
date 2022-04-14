@@ -13,6 +13,7 @@ import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.repo.models.Project;
 import pmo.project.repo.models.Task;
 import pmo.project.repo.models.TaskRequirement;
+import pmo.project.utilities.Constant;
 
 public class QueryProjectFeasibilityHandler extends Handler {
 	
@@ -32,9 +33,9 @@ public class QueryProjectFeasibilityHandler extends Handler {
 	
 	private boolean execute(ProjectExecutionRequest projectExecutionRequest, StringBuilder output)
 	{
-		Project project = _projectManagementservice.getProjectById(projectExecutionRequest.getProjectId());
+		Project project = this._projectManagementservice.getProjectById(projectExecutionRequest.getProjectId());
 		
-		List<Long> tasks = _projectManagementservice.getProjectTasks(project.getId());
+		List<Long> tasks = this._projectManagementservice.getProjectTasks(project.getId());
 		Map<Integer, Date> levelStartDates= new HashMap<Integer, Date> ();
 		levelStartDates.put(-1, projectExecutionRequest.getStartDate());
 		HashSet<Long> processTasks = new HashSet<Long>();
@@ -49,8 +50,8 @@ public class QueryProjectFeasibilityHandler extends Handler {
 	
 	//linear approach for task creation
 	private boolean estimateAllocateResources(Long taskId, Date dueDate, int blockingtasksremaining, Map<Integer, Date> levelStartDates, HashSet<Long> processTasks, StringBuilder output) {
-		List<Long> blockingtasks = _taskManagementService.getBlockingTask(taskId);
-		Task task = _taskManagementService.getTaskById(taskId);
+		List<Long> blockingtasks = this._taskManagementService.getBlockingTask(taskId);
+		Task task = this._taskManagementService.getTaskById(taskId);
 		
 		if(blockingtasks!=null)
 		for(Long blockingtask : blockingtasks) {
@@ -73,12 +74,12 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		    return false;
 		}
 		
-		List<TaskRequirement> humanResourcesRequirements = _taskManagementService.getTaskRequirements(taskId, "Human");
-		List<TaskRequirement> materialResourcesRequirements = _taskManagementService.getTaskRequirements(taskId, "Material");
+		List<TaskRequirement> humanResourcesRequirements = this._taskManagementService.getTaskRequirements(taskId, Constant.HUMAN_LABEL);
+		List<TaskRequirement> materialResourcesRequirements = this._taskManagementService.getTaskRequirements(taskId, Constant.MATERIAL_LABEL);
 		
 		if(humanResourcesRequirements!=null)
 		for(TaskRequirement requirement: humanResourcesRequirements) {
-			int count = _humanResourceService.getAvailableHumanResources(requirement.getSubType(), levelDate, completionDate).size();
+			int count = this._humanResourceService.getAvailableHumanResources(requirement.getSubType(), levelDate, completionDate).size();
 			if(count<requirement.getQuantity()){
 				output.append("Task - "+ taskId +" failed due to human resource availabity");
 				return false;
@@ -87,7 +88,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		
 		if(materialResourcesRequirements!=null)
 		for(TaskRequirement requirement: materialResourcesRequirements) {
-			int count = _materialResourceService.getAvailableMaterialResources(requirement.getSubType()).size();
+			int count = this._materialResourceService.getAvailableMaterialResources(requirement.getSubType()).size();
 			if(count<requirement.getQuantity()) {
 				output.append("Task - "+ taskId +" failed due to material availabity");
 				return false;

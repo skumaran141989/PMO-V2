@@ -10,6 +10,7 @@ import pmo.project.repo.ProjectManagementRepo;
 import pmo.project.repo.TaskManagementRepo;
 import pmo.project.repo.TaskRequirementRepo;
 import pmo.project.repo.models.Project;
+import pmo.project.utilities.Constant;
 
 public class ProjectService {
 	private ProjectManagementRepo _projectManagementRepo;
@@ -54,7 +55,7 @@ public class ProjectService {
 	
 	//this will be a query in real time
 	public List<Long> getProjectDocuments(long id){
-		return this._documentRepo.getAll().values().stream().filter(doc->doc.getReferencId()==id && doc.getReferencType().equals("Project")).map(task->task.getId()).collect(Collectors.toList());
+		return this._documentRepo.getAll().values().stream().filter(doc->doc.getReferencId()==id && doc.getReferencType().equals(Constant.PROJECT_LABEL)).map(task->task.getId()).collect(Collectors.toList());
 	}
 	
 	//this will be a query in real time

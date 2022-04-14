@@ -20,16 +20,16 @@ public class HumanResourceService {
 	}
 	
 	public long createHumaResource(HumanResource resource){
-		return _humanResourceRepo.save(resource);
+		return this._humanResourceRepo.save(resource);
 	}
 	
 	public HumanResource getHumanResourceById(long id){
-		return _humanResourceRepo.get(id);
+		return this._humanResourceRepo.get(id);
 	}
 	
 	//this will be a query in real time
 	public List<HumanResource> getHumanResourcesByType(String type) {
-		return _humanResourceRepo.getAll().values().stream().filter(resource->resource.getType()==type).collect(Collectors.toList());
+		return this._humanResourceRepo.getAll().values().stream().filter(resource->resource.getType()==type).collect(Collectors.toList());
 	}
 	
 	//this will be a join query in real time
@@ -37,7 +37,7 @@ public class HumanResourceService {
 		List<HumanResource> humanresources = getHumanResourcesByType(type);
 		List<HumanResource> availablehumanresources  = new ArrayList<HumanResource>();
 		for(HumanResource humanResource: humanresources) {
-			List<TimeSlot> timeslots = _resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId()==humanResource.getId()).collect(Collectors.toList());
+			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId()==humanResource.getId()).collect(Collectors.toList());
 	        boolean isAvailable = true; 
          	for(TimeSlot slot: timeslots) {
          		isAvailable=!isSlotWithinRange(slot, startDate, endDate);

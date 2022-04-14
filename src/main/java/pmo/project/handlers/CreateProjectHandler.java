@@ -20,6 +20,6 @@ public class CreateProjectHandler extends Handler {
 	
 	private void execute(ProjectCreationRequest projectCreationRequest)
 	{	
-		_projectManagementservice.createProject(projectCreationRequest);
+		this._projectManagementservice.createProject(projectCreationRequest);
 	}
 }

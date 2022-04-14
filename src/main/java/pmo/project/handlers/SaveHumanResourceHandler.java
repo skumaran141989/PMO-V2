@@ -19,6 +19,6 @@ public class SaveHumanResourceHandler extends Handler {
 	
 	private void execute(HumanResource resource)
 	{
-		_humanResourceService.createHumaResource(resource);
+		this._humanResourceService.createHumaResource(resource);
 	}
 }

@@ -13,7 +13,7 @@ public class QueryProjectInfoExecutor extends Handler {
 		
 			String projectId = (String) request;
 		
-			Project project = _projectManagementservice.getProjectByName(projectId);
+			Project project = this._projectManagementservice.getProjectByName(projectId);
 			response.setObject(project);
 		}
 		catch(Exception ex) {
