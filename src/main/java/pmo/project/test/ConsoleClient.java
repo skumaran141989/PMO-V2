@@ -1,7 +1,7 @@
 package pmo.project.test;
 
 import pmo.project.repo.*;
-import pmo.project.resource.models.*;
+import pmo.project.repo.resource.models.*;
 
 public class ConsoleClient {
 	

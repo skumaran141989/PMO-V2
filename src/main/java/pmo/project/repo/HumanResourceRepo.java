@@ -1,42 +1,39 @@
 package pmo.project.repo;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import pmo.project.resource.models.abstraction.HumanResource;
+import pmo.project.repo.resource.models.HumanResource;
 
 //DB partitioned or indexed on Human resource Type
 public class HumanResourceRepo {
-	  private Map<String, List<HumanResource>> _employees;
+	  private Map<Long, HumanResource> _resource;
+	  private long _lastId;
 	  
 	  public HumanResourceRepo() {
-		  this._employees = new HashMap<String, List<HumanResource>>();
+		  this._resource = new HashMap<Long, HumanResource>();
+		  this._lastId=0;
 	  }
 		
-	  public void save(HumanResource resource) {
-		  List<HumanResource> resourceList =  this._employees.get(resource.getClass().toString());
+	  public long save(HumanResource resource) {
+		  Long id = resource.getId();
+		  if(id==0)
+			  id=++this._lastId;
 		  
-		  if (resourceList==null)
-			  resourceList = new ArrayList<HumanResource>();
-		  else
-			  resourceList.add(resource);
+		  this._resource.put(resource.getId(), resource);
 		  
-		  this._employees.put(resource.getClass().toString(), resourceList);
-	 }
-	  
-	  public void delete(HumanResource resource ) {
-		  
-		  List<HumanResource> resourceList =  this._employees.get(resource.getClass().toString());
-		  
-		  if (resourceList!=null) {
-			  resourceList.remove(resource);
-			  this._employees.put(resource.getClass().toString(), resourceList);
-		  }
+		  return id;
 	  }
 	  
-	  public  List<HumanResource> get(String type) {
-		  return this._employees.get(type);
+	  public Map<Long, HumanResource> getAll() {
+		  return this._resource;
+	  }
+	  
+	  public HumanResource get(long resourceId) {
+		  return this._resource.get(resourceId);
+	  }
+	  
+	  public void delete(long resourceId) {
+		  this._resource.remove(resourceId);
 	  }
 }

@@ -1,24 +1,24 @@
 package pmo.project.handlers.request;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TaskCreationRequest {
+	private int _requirementsId;
     private Map<String, Integer> _humanResource;
     private Map<String, Integer> _materialResource;
-    private Map<TaskCreationRequest, Integer> _taskRequests;
-    private long _timeTaken;
-    private String _name;
+    private int _daysTaken;
     private String _description;
-    private String _projectName;
-    private long _remainingHours;
-    private int _weightToParent;
+    private long _projectId;
     private String _taskName;
+    private long _blockingId;
+    private Date _createdDate;
+    private Date _updatedDate;
     
     public TaskCreationRequest() {
     	this._humanResource = new HashMap<String, Integer>();
     	this._materialResource = new HashMap<String, Integer>();
-    	this._taskRequests = new HashMap<TaskCreationRequest, Integer>();
     }
     
     public void setHumanResource(String resource, int quantity) {
@@ -37,13 +37,6 @@ public class TaskCreationRequest {
     	return this._materialResource;
     }
     
-    public void setName(String name) {
-    	this._name = name;
-    }
-    
-    public String getName() {
-    	return this._name;
-    }
     
     public void setDescription(String description) {
     	this._description = description;
@@ -53,46 +46,21 @@ public class TaskCreationRequest {
     	return this._description;
     }
     
-    public void setTimeTaken(long timeTaken) {
-    	this._timeTaken = timeTaken;
+    public void setRequirementsId(int requirementsId) {
+    	this._requirementsId = requirementsId;
     }
     
-    public long getTimeTaken() {
-    	return this._timeTaken;
+    public int getRequirementsId() {
+    	return this._requirementsId;
     }
     
-    public void setTaskrequests(TaskCreationRequest taskrequest, int weight) {
-    	this._taskRequests.put(taskrequest, weight);
+    public void setProjectId(long projectId) {
+    	this._projectId = projectId;
     }
     
-    public Map<TaskCreationRequest, Integer> getTaskrequests() {
-    	return this._taskRequests;
+    public long getProjectId() {
+    	return this._projectId;
     }
-    
-    public void setProjectName(String projectName) {
-    	this._projectName = projectName;
-    }
-    
-    public String getProjectName() {
-    	return this._projectName;
-    }
-    
-    public void setRemainingHours(long remainingHours) {
-    	this._remainingHours = remainingHours;
-    }
-    
-    public long getRemainingHours() {
-    	return this._remainingHours;
-    }
-    
-    public void setWeightToParent(int weightToParent) {
-    	this._weightToParent = weightToParent;
-    }
-    
-    public int getWeightToParent() {
-    	return this._weightToParent;
-    }
-    
     
     public void setTasktName(String taskName) {
     	this._taskName = taskName;
@@ -100,5 +68,37 @@ public class TaskCreationRequest {
     
     public String getTaskName() {
     	return this._taskName;
+    }
+    
+    public void setBlockingTaskId(long blockingId) {
+    	this._blockingId = blockingId;
+    }
+    
+    public long getBlockingTaskId() {
+    	return this._blockingId;
+    }
+    
+    public int getDaysTaken() {
+    	return this._daysTaken;
+    }
+    
+    public void setDaysTaken(int daysTaken) {
+    	this._daysTaken = daysTaken;
+    }
+    
+    public Date getCreatedDate() {
+    	return this._createdDate;
+    }
+    
+    public void setCreatedDate(Date createdDate) {
+    	this._createdDate = createdDate;
+    }
+    
+    public Date getUpdatedDate() {
+    	return this._updatedDate;
+    }
+    
+    public void setUpdatedDate(Date updatedDate) {
+    	this._updatedDate = updatedDate;
     }
 }

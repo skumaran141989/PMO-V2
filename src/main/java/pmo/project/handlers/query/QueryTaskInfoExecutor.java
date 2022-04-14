@@ -2,7 +2,7 @@ package pmo.project.handlers.query;
 
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.models.Task;
+import pmo.project.repo.models.Task;
 
 public class QueryTaskInfoExecutor extends Handler {
 	
@@ -13,7 +13,7 @@ public class QueryTaskInfoExecutor extends Handler {
 		
 			String TaskId = (String) request;
 		
-			Task task = _taskManagementRepo.get(TaskId);
+			Task task = _taskManagementService.getTaskByName(TaskId);
 			response.setObject(task);
 		}
 		catch(Exception ex) {

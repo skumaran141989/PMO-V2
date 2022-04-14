@@ -2,7 +2,7 @@ package pmo.project.handlers.query;
 
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.models.Project;
+import pmo.project.repo.models.Project;
 
 public class QueryProjectInfoExecutor extends Handler {
 	
@@ -13,7 +13,7 @@ public class QueryProjectInfoExecutor extends Handler {
 		
 			String projectId = (String) request;
 		
-			Project project = _projectManagementRepo.get(projectId);
+			Project project = _projectManagementservice.getProjectByName(projectId);
 			response.setObject(project);
 		}
 		catch(Exception ex) {

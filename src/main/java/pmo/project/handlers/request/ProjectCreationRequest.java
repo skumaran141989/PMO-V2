@@ -1,18 +1,18 @@
 package pmo.project.handlers.request;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 public class ProjectCreationRequest {
     private String _name;
     private String _description;
-    private Map<TaskCreationRequest, Integer> _taskRequests;
+    private List<TaskCreationRequest> _taskRequests;
     private Date _startDate; 
     private Date _dueDate;
     
     public ProjectCreationRequest() {
-    	this._taskRequests = new HashMap<TaskCreationRequest, Integer>();
+    	this._taskRequests = new ArrayList<TaskCreationRequest>();
     }
     
     public void setName(String name) {
@@ -31,11 +31,11 @@ public class ProjectCreationRequest {
     	return this._description;
     }
     
-    public void setTaskrequests(TaskCreationRequest taskrequest, int weight) {
-    	this._taskRequests.put(taskrequest, weight);
+    public void setTaskrequests(List<TaskCreationRequest> taskRequests) {
+    	this._taskRequests=taskRequests;
     }
     
-    public Map<TaskCreationRequest, Integer> getTaskrequests() {
+    public List<TaskCreationRequest> getTaskrequests() {
     	return this._taskRequests;
     }
     

@@ -3,29 +3,38 @@ package pmo.project.repo;
 import java.util.HashMap;
 import java.util.Map;
 
-import pmo.project.models.Task;
+import pmo.project.repo.models.Task;
 
 //DB partitioned or indexed on Task ID
 public class TaskManagementRepo {
-  private Map<String, Task> _tasks;
-  
-  public TaskManagementRepo() {
-	  this._tasks = new HashMap<String, Task>();
-  }
-  
-  public void save(Task task) {
-	  this._tasks.put(task.getTitle(), task);
-  }
-  
-  public Map<String, Task> getAll() {
-	  return this._tasks;
-  }
-  
-  public Task get(String taskName) {
-	  return this._tasks.get(taskName);
-  }
-  
-  public void delete(String taskName) {
-	  this._tasks.remove(taskName);
-  }
+	  private Map<Long, Task> _tasks;
+	  private long _lastId;
+	  
+	  public TaskManagementRepo() {
+		  this._tasks = new HashMap<Long, Task>();
+		  this._lastId=0;
+	  }
+	  
+	  public long save(Task task) {
+		  Long id = task.getId();
+		  if(id==0)
+			  id=++this._lastId;
+		  
+		  //this will be a async process	  
+		  this._tasks.put(id, task);
+		  
+		  return id;
+	  }
+	  
+	  public Map<Long, Task> getAll() {
+		  return this._tasks;
+	  }
+	  
+	  public Task get(Long taskId) {
+		  return this._tasks.get(taskId);
+	  }
+	  
+	  public void delete(Long taskId) {
+		  this._tasks.remove(taskId);
+	  }
 }

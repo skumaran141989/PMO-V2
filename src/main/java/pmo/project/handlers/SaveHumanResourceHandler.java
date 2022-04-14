@@ -1,10 +1,8 @@
 package pmo.project.handlers;
 
-import org.springframework.scheduling.annotation.Async;
-
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.resource.models.abstraction.HumanResource;
+import pmo.project.repo.resource.models.HumanResource;
 
 public class SaveHumanResourceHandler extends Handler {
 	
@@ -19,9 +17,8 @@ public class SaveHumanResourceHandler extends Handler {
 		return response;
 	}  
 	
-	@Async("Level1")
 	private void execute(HumanResource resource)
 	{
-		_humanResourceRepo.save(resource);
+		_humanResourceService.createHumaResource(resource);
 	}
 }

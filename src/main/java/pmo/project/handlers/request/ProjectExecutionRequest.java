@@ -3,16 +3,16 @@ package pmo.project.handlers.request;
 import java.util.Date;
 
 public class ProjectExecutionRequest {
-    private String _projectName;
+    private long _projectId;
     private Date _startDate; 
     private Date _dueDate;
     
-    public String getProjectName() {
-    	return this._projectName;
+    public long getProjectId() {
+    	return this._projectId;
     }
     
-    public void setProjectName(String projectName) {
-    	this._projectName = projectName;
+    public void setProjectId(long projectId) {
+    	this._projectId = projectId;
     }
     
     public void setStartDate(Date startDate) {

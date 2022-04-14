@@ -1,42 +1,38 @@
 package pmo.project.repo;
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import pmo.project.resource.models.abstraction.MaterialResource;
-
+import pmo.project.repo.resource.models.MaterialResource;
 
 //DB partitioned or indexed on Material resource Type
 public class MaterialResourceRepo {
-	 private Map<String, List<MaterialResource>> _materials;
-	 
+	  private Map<Long, MaterialResource> _resource;
+	  private long _lastId;
+	  
 	  public MaterialResourceRepo() {
-		  this._materials = new HashMap<String, List<MaterialResource>>();
+		  this._resource = new HashMap<Long, MaterialResource>();
+		  this._lastId=0;
 	  }
-	
-	  public void save(MaterialResource resource) {
-		  List<MaterialResource> resourceList = this._materials.get(resource.getClass().toString());
+		
+	  public long save(MaterialResource resource) {
+		  Long id = resource.getId();
+		  if(id==0)
+			  id=++this._lastId;
 		  
-		  if (resourceList==null)
-			  resourceList = new ArrayList<MaterialResource>();
-		  else
-			  resourceList.add(resource);
-		  
-		  this._materials.put(resource.getClass().toString(), resourceList);
-	  }
-	  
-	  public void delete(MaterialResource resource ) {
-		  
-		  List<MaterialResource> resourceList = this._materials.get(resource.getClass().toString());
-		  
-		  if (resourceList!=null) {
-			  resourceList.remove(resource);
-			  this._materials.put(resource.getClass().toString(), resourceList);
-		  }
+		  this._resource.put(id, resource);
+		  return id;
 	  }
 	  
-	  public  List<MaterialResource> get(String type) {
-		  return this._materials.get(type);
+	  public Map<Long, MaterialResource> getAll() {
+		  return this._resource;
+	  }
+	  
+	  public MaterialResource get(long resourceId) {
+		  return this._resource.get(resourceId);
+	  }
+	  
+	  public void delete(long resourceId) {
+		  this._resource.remove(resourceId);
 	  }
 }

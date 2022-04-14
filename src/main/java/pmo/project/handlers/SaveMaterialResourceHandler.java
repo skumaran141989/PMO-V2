@@ -1,10 +1,8 @@
 package pmo.project.handlers;
 
-import org.springframework.scheduling.annotation.Async;
-
 import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
-import pmo.project.resource.models.abstraction.MaterialResource;
+import pmo.project.repo.resource.models.MaterialResource;
 
 public class SaveMaterialResourceHandler extends Handler {
 
@@ -19,9 +17,8 @@ public class SaveMaterialResourceHandler extends Handler {
 		return response;
 	} 
 	
-	@Async("Level1")
 	private void execute(MaterialResource resource)
 	{
-		_materialResourceRepo.save(resource);
+		_materialResourceService.createMaterialResource(resource);
 	}
 }
