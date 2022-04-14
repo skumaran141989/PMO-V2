@@ -38,25 +38,27 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		List<Long> tasks = this._projectManagementservice.getProjectTasks(project.getId());
 		Map<Integer, Date> levelStartDates= new HashMap<Integer, Date> ();
 		levelStartDates.put(-1, projectExecutionRequest.getStartDate());
-		HashSet<Long> processTasks = new HashSet<Long>();
+		HashSet<Long> processedTasks = new HashSet<Long>();
 		if(tasks!=null)
 		for(Long taskId : tasks) {
-			if(!estimateAllocateResources(taskId, projectExecutionRequest.getDueDate(), 0, levelStartDates, processTasks, output))
-				return false;
+			if(!processedTasks.contains(taskId))
+				if(!estimateAllocateResources(taskId, projectExecutionRequest.getDueDate(), 0, levelStartDates, processedTasks, output))
+					return false;
 		}
 		
 		return true;
 	}
 	
 	//linear approach for task creation
-	private boolean estimateAllocateResources(Long taskId, Date dueDate, int blockingtasksremaining, Map<Integer, Date> levelStartDates, HashSet<Long> processTasks, StringBuilder output) {
+	private boolean estimateAllocateResources(Long taskId, Date dueDate, int blockingtasksremaining, Map<Integer, Date> levelStartDates, HashSet<Long> processedTasks, StringBuilder output) {
 		List<Long> blockingtasks = this._taskManagementService.getBlockingTask(taskId);
 		Task task = this._taskManagementService.getTaskById(taskId);
 		
 		if(blockingtasks!=null)
 		for(Long blockingtask : blockingtasks) {
-			if(!estimateAllocateResources(blockingtask, dueDate, blockingtasksremaining+1, levelStartDates, processTasks, output))
-				return false;
+			if(!processedTasks.contains(taskId))
+				if(!estimateAllocateResources(blockingtask, dueDate, blockingtasksremaining+1, levelStartDates, processedTasks, output))
+					return false;
 		}
 		
 		Date levelDate = levelStartDates.get(blockingtasksremaining);
@@ -96,7 +98,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 		}
 		
 		output.append("Task - "+ taskId +" successfully processed");
-		processTasks.add(taskId);
+		processedTasks.add(taskId);
 		
 		return true;
 	}
