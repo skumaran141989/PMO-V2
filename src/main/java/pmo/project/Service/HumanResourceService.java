@@ -40,7 +40,7 @@ public class HumanResourceService {
 			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId()==humanResource.getId()).collect(Collectors.toList());
 	        boolean isAvailable = true; 
          	for(TimeSlot slot: timeslots) {
-         		isAvailable=!isSlotWithinRange(slot, startDate, endDate);
+         		isAvailable=!checkSlotWithinRange(slot, startDate, endDate);
          		if(!isAvailable)
 	        	    break;
 	         }
@@ -53,7 +53,7 @@ public class HumanResourceService {
 		return availablehumanresources;
 	}
 	
-	private boolean isSlotWithinRange(TimeSlot slot, Date startDate, Date endDate) {
+	private boolean checkSlotWithinRange(TimeSlot slot, Date startDate, Date endDate) {
 		if(startDate.after(slot.getStartDate()) && startDate.before(slot.getEndDate()))
 			return true;
 		
