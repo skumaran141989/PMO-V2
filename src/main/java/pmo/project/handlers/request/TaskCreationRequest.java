@@ -12,7 +12,7 @@ public class TaskCreationRequest {
     private String _description;
     private long _projectId;
     private String _taskName;
-    private long _blockingId;
+    private long _blockingTaskId;
     private Date _createdDate;
     private Date _updatedDate;
     
@@ -70,12 +70,12 @@ public class TaskCreationRequest {
     	return this._taskName;
     }
     
-    public void setBlockingTaskId(long blockingId) {
-    	this._blockingId = blockingId;
+    public void setBlockingTaskId(long blockingTaskId) {
+    	this._blockingTaskId = blockingTaskId;
     }
     
     public long getBlockingTaskId() {
-    	return this._blockingId;
+    	return this._blockingTaskId;
     }
     
     public int getDaysTaken() {
