@@ -25,18 +25,24 @@ public class QueryProjectFeasibilityHandler extends Handler {
 	public HandlerResponse<StringBuilder> process(Object request) {
 		
 		HandlerResponse<StringBuilder> response = new HandlerResponse<StringBuilder>();
-		
-		ProjectExecutionRequest projectExecutionRequest = (ProjectExecutionRequest) request;
-		StringBuilder output = new StringBuilder();
-		execute(projectExecutionRequest, output);
-		
-		response.setObject(output);
+			
+		try {
+			
+			ProjectExecutionRequest projectExecutionRequest = (ProjectExecutionRequest) request;
+			StringBuilder output = new StringBuilder();
+			execute(projectExecutionRequest, output);
+			
+			response.setObject(output);
+		}
+		catch(Exception ex) {
+			response.getErrorResponse().add(ex.getMessage());
+		}
 		
 		return response;
 	}   
 	
-	private boolean execute(ProjectExecutionRequest projectExecutionRequest, StringBuilder output)
-	{
+	private boolean execute(ProjectExecutionRequest projectExecutionRequest, StringBuilder output) {
+		
 		Project project = this._projectManagementservice.getProjectById(projectExecutionRequest.getProjectId());
 		List<Long> tasks = this._projectManagementservice.getProjectTasks(project.getId());
 		
@@ -59,7 +65,8 @@ public class QueryProjectFeasibilityHandler extends Handler {
 	
 	//linear approach for task creation
 	private boolean estimateAllocateResources(Long taskId, Date dueDate, int level, Map<Integer, Date> levelStartDates, HashSet<Long> processedTasks, 
-			                        		  StringBuilder output, Map<Integer, Map<String, Integer>> levelAllocatedMaterialResources, Map<Integer, Map<String, Set<Entry<TimeSlot, Integer>>>> levelAllocatedlHumanResources) {
+			                        		  StringBuilder output, Map<Integer, Map<String, Integer>> levelAllocatedMaterialResources, Map<Integer, 
+			                        		  Map<String, Set<Entry<TimeSlot, Integer>>>> levelAllocatedlHumanResources) {
 		List<Long> blockingtasks = this._taskManagementService.getBlockingTask(taskId);
 		Task task = this._taskManagementService.getTaskById(taskId);
 		

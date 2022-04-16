@@ -8,6 +8,7 @@ public class SaveHumanResourceHandler extends Handler {
 	
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {
+		
 		HumanResource resource = (HumanResource) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		

@@ -9,6 +9,7 @@ public class QueryTaskInfoExecutor extends Handler {
 	@Override
 	public HandlerResponse<Task> process(Object request) {
 		HandlerResponse<Task> response = new HandlerResponse<Task>();
+		
 		try {
 		
 			String TaskId = (String) request;

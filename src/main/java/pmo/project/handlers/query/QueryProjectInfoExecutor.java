@@ -8,7 +8,9 @@ public class QueryProjectInfoExecutor extends Handler {
 	
 	@Override
 	public HandlerResponse<Project> process(Object request) {
+		
 		HandlerResponse<Project> response = new HandlerResponse<Project>();
+		
 		try {
 		
 			String projectId = (String) request;

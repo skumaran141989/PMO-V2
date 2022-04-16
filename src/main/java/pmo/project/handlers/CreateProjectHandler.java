@@ -7,7 +7,7 @@ import pmo.project.handlers.response.HandlerResponse;
 public class CreateProjectHandler extends Handler {
 
 	@Override
-	public HandlerResponse<Boolean> process(Object request) { 
+	public HandlerResponse<Boolean> process(Object request) {
 		
 		ProjectCreationRequest projectCreationRequest = (ProjectCreationRequest) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
@@ -18,8 +18,7 @@ public class CreateProjectHandler extends Handler {
 		return response;
 	}
 	
-	private void execute(ProjectCreationRequest projectCreationRequest)
-	{	
+	private void execute(ProjectCreationRequest projectCreationRequest) {	
 		this._projectManagementservice.createProject(projectCreationRequest);
 	}
 }

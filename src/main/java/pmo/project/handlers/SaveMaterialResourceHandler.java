@@ -1,3 +1,4 @@
+
 package pmo.project.handlers;
 
 import pmo.project.handlers.abstraction.Handler;
@@ -8,6 +9,7 @@ public class SaveMaterialResourceHandler extends Handler {
 
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {
+		
 		MaterialResource resource = (MaterialResource) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
