@@ -8,7 +8,6 @@ public class QueryProjectInfoExecutor extends Handler {
 	
 	@Override
 	public HandlerResponse<Project> process(Object request) {
-		
 		HandlerResponse<Project> response = new HandlerResponse<Project>();
 		
 		try {
@@ -18,7 +17,7 @@ public class QueryProjectInfoExecutor extends Handler {
 			Project project = this._projectManagementservice.getProjectByName(projectId);
 			response.setObject(project);
 		}
-		catch(Exception ex) {
+		catch (Exception ex) {
 			response.getErrorResponse();
 		}
 		

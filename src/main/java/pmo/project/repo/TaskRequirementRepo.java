@@ -5,7 +5,7 @@ import java.util.Map;
 
 import pmo.project.repo.models.TaskRequirement;
 
-//DB partitioned or indexed on Document ID
+//DB partitioned or indexed on TaskRequirement ID
 public class TaskRequirementRepo {
 	  private Map<Long, TaskRequirement> _taskRequirements;
 	  private long _lastId;
@@ -17,10 +17,14 @@ public class TaskRequirementRepo {
 	  
 	  public long save(TaskRequirement requirement) {
 		  Long id = requirement.getId();
-		  if(id==0)
-			  id=++this._lastId;
 		  
+		  if (id == 0 ) {
+			  id = ++this._lastId;
+		  }
+		  
+		  //this will be a async process
 		  this._taskRequirements.put(requirement.getId(), requirement);
+		  
 		  return id;
 	  }
 	  

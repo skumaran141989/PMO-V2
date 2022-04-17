@@ -29,23 +29,30 @@ public class HumanResourceService {
 	
 	//this will be a query in real time
 	public List<HumanResource> getHumanResourcesByType(String type) {
-		return this._humanResourceRepo.getAll().values().stream().filter(resource->resource.getType()==type).collect(Collectors.toList());
+		return this._humanResourceRepo.getAll().values().stream().filter(resource->resource.getType() == type).collect(Collectors.toList());
 	}
 	
 	//this will be a join query in real time
 	public List<HumanResource> getAvailableHumanResources(String type, Date startDate, Date endDate) {
 		List<HumanResource> humanresources = getHumanResourcesByType(type);
 		List<HumanResource> availablehumanresources  = new ArrayList<HumanResource>();
-		for(HumanResource humanResource: humanresources) {
-			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId()==humanResource.getId()).collect(Collectors.toList());
+		
+		for (HumanResource humanResource : humanresources) {
+			
+			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId() == humanResource.getId()).collect(Collectors.toList());
 	        boolean isAvailable = true; 
-         	for(TimeSlot slot: timeslots) {
+	        
+         	for (TimeSlot slot : timeslots) {
+         		
          		isAvailable=!checkSlotWithinRange(slot, startDate, endDate);
-         		if(!isAvailable)
+         		
+         		if (!isAvailable) {
 	        	    break;
+         		}
 	         }
          	
-         	if(isAvailable) {
+         	if (isAvailable) {
+         		
          		availablehumanresources.add(humanResource);
          	}
 		}
@@ -54,11 +61,13 @@ public class HumanResourceService {
 	}
 	
 	private boolean checkSlotWithinRange(TimeSlot slot, Date startDate, Date endDate) {
-		if(startDate.after(slot.getStartDate()) && startDate.before(slot.getEndDate()))
+		if (startDate.after(slot.getStartDate()) && startDate.before(slot.getEndDate())) {
 			return true;
+		}
 		
-		if(endDate.after(slot.getStartDate()) && endDate.before(slot.getEndDate()))
+		if (endDate.after(slot.getStartDate()) && endDate.before(slot.getEndDate())) {
 			return true;
+		}
 		
 		return false;
 	}

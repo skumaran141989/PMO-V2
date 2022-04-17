@@ -9,18 +9,17 @@ public class SaveMaterialResourceHandler extends Handler {
 
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {
-		
 		MaterialResource resource = (MaterialResource) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
 		execute(resource);
+		
 		response.setObject(true);
 		
 		return response;
 	} 
 	
-	private void execute(MaterialResource resource)
-	{
+	private void execute(MaterialResource resource)	{
 		this._materialResourceService.createMaterialResource(resource);
 	}
 }

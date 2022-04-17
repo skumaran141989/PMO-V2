@@ -7,7 +7,7 @@ import pmo.project.repo.models.Project;
 
 public class ProjectManagementRepo {
 	  private Map<Long, Project> _projects;
-	  private long _lastId=0;
+	  private long _lastId;
 	  
 	  public ProjectManagementRepo() {
 		  this._projects = new HashMap<Long, Project>();
@@ -16,8 +16,10 @@ public class ProjectManagementRepo {
 	  
 	  public long save(Project project) {
 		  Long id = project.getId();
-		  if(id==0)
-			  id=++_lastId;
+			
+		  if (id == 0 ) {
+			id = ++this._lastId;
+		  }
 			  
 		  this._projects.put(id, project);
 		  

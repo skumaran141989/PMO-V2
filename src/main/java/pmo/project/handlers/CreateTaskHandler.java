@@ -8,11 +8,11 @@ public class CreateTaskHandler extends Handler {
 	
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {
-		
 		TaskCreationRequest taskCreationRequest = (TaskCreationRequest) request;
 		HandlerResponse<Boolean> response = new HandlerResponse<Boolean>();
 		
 		execute(taskCreationRequest);
+		
 		response.setObject(true);
 		
 		return response;

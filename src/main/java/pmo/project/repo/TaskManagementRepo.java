@@ -12,13 +12,15 @@ public class TaskManagementRepo {
 	  
 	  public TaskManagementRepo() {
 		  this._tasks = new HashMap<Long, Task>();
-		  this._lastId=0;
+		  this._lastId = 0;
 	  }
 	  
 	  public long save(Task task) {
 		  Long id = task.getId();
-		  if(id==0)
-			  id=++this._lastId;
+			
+		  if (id == 0 ) {
+			  id = ++this._lastId;
+		  }
 		  
 		  //this will be a async process	  
 		  this._tasks.put(id, task);

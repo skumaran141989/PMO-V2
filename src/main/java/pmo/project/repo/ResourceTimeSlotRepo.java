@@ -12,13 +12,15 @@ public class ResourceTimeSlotRepo {
 	  
 	  public ResourceTimeSlotRepo() {
 		  this._timeSlots = new HashMap<Long, TimeSlot>();
-		  this._lastId=0;
+		  this._lastId = 0;
 	  }
 	  
 	  public void save(TimeSlot slot) {
 		  Long id = slot.getId();
-		  if(id==0)
-			  id=++this._lastId;
+			
+		  if (id == 0 ) {
+			  id = ++this._lastId;
+		  }
 		  
 		  this._timeSlots.put(slot.getId(), slot);
 	  }

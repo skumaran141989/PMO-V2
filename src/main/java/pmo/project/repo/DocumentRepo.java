@@ -12,15 +12,17 @@ public class DocumentRepo {
   
 	public DocumentRepo() {
 		this._documents = new HashMap<Long, Document>();
-		this._lastId=0;
+		this._lastId = 0;
 	}
   
 	public void save(Document doc) {
 		Long id = doc.getId();
-		if(id==0)
-			id=++this._lastId;
+		
+		if (id == 0 ) {
+			id = ++this._lastId;
+		}
 	  
-		this._documents.put(doc.getId(), doc);
+		this._documents.put(id, doc);
 	}
   
 	public Map<Long, Document> getAll() {

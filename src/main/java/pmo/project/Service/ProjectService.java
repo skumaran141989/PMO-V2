@@ -30,11 +30,16 @@ public class ProjectService {
 	
 	public long createProject(ProjectCreationRequest projectCreationRequest){
 		Project project = new Project(projectCreationRequest.getDescription(), projectCreationRequest.getName());
-		long projectId=this._projectManagementRepo.save(project);
+		long projectId = this._projectManagementRepo.save(project);
 		List<TaskCreationRequest> requests = projectCreationRequest.getTaskrequests();
-		if(requests!=null)
-		for(TaskCreationRequest request:requests)
-			_taskService.createTask(request);
+		
+		if (requests != null) {
+			
+			for	(TaskCreationRequest request:requests) {
+				
+				_taskService.createTask(request);
+			}
+		}
 		
 		return projectId;
 	}
@@ -50,16 +55,16 @@ public class ProjectService {
 	
 	//this will be a query in real time
 	public List<Long> getProjectTasks(long id){
-		return this._taskManagementRepo.getAll().values().stream().filter(task->task.getProjectId()==id).map(task->task.getId()).collect(Collectors.toList());
+		return this._taskManagementRepo.getAll().values().stream().filter(task->task.getProjectId() == id).map(task->task.getId()).collect(Collectors.toList());
 	}
 	
 	//this will be a query in real time
 	public List<Long> getProjectDocuments(long id){
-		return this._documentRepo.getAll().values().stream().filter(doc->doc.getReferencId()==id && doc.getReferencType().equals(Constant.PROJECT_LABEL)).map(task->task.getId()).collect(Collectors.toList());
+		return this._documentRepo.getAll().values().stream().filter(doc->doc.getReferencId() == id && doc.getReferencType().equals(Constant.PROJECT_LABEL)).map(task->task.getId()).collect(Collectors.toList());
 	}
 	
 	//this will be a query in real time
 	public  List<Long> getProjectRequirements(long id){
-		return this._taskRequirementRepo.getAll().values().stream().filter(project->project.getProjectId()==id).map(task->task.getId()).collect(Collectors.toList());
+		return this._taskRequirementRepo.getAll().values().stream().filter(project->project.getProjectId() == id).map(task->task.getId()).collect(Collectors.toList());
 	} 
 }

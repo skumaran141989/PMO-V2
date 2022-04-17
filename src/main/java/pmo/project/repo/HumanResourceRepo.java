@@ -12,15 +12,17 @@ public class HumanResourceRepo {
   
 	public HumanResourceRepo() {
 		this._resource = new HashMap<Long, HumanResource>();
-		this._lastId=0;
+		this._lastId = 0;
 	}
 	
 	public long save(HumanResource resource) {
 		Long id = resource.getId();
-		if(id==0)
-			id=++this._lastId;
+		
+		if (id == 0 ) {
+			id = ++this._lastId;
+		}
 	  
-		this._resource.put(resource.getId(), resource);
+		this._resource.put(id, resource);
 	  
 		return id;
 	}

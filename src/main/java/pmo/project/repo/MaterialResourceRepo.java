@@ -12,15 +12,17 @@ public class MaterialResourceRepo {
 	  
 	  public MaterialResourceRepo() {
 		  this._resource = new HashMap<Long, MaterialResource>();
-		  this._lastId=0;
+		  this._lastId = 0;
 	  }
 		
 	  public long save(MaterialResource resource) {
 		  Long id = resource.getId();
-		  if(id==0)
-			  id=++this._lastId;
+			
+		  if (id == 0 )
+			  id = ++this._lastId;
 		  
 		  this._resource.put(id, resource);
+		  
 		  return id;
 	  }
 	  

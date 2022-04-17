@@ -11,7 +11,7 @@ public class QueryTaskInfoExecutor extends Handler {
 		HandlerResponse<Task> response = new HandlerResponse<Task>();
 		
 		try {
-		
+			
 			String TaskId = (String) request;
 		
 			Task task = this._taskManagementService.getTaskByName(TaskId);

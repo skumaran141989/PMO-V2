@@ -24,11 +24,11 @@ public class MaterialResourceService {
 	
 	//this will be a query in real time
 	public List<MaterialResource> getMaterialResourceByType(String type) {
-		return this._materialResourceRepo.getAll().values().stream().filter(resource->resource.getType()==type).collect(Collectors.toList());
+		return this._materialResourceRepo.getAll().values().stream().filter(resource->resource.getType() == type).collect(Collectors.toList());
 	}
 	
 	//this will be a join query in real time
 	public List<MaterialResource> getAvailableMaterialResources(String type) {
-		return this._materialResourceRepo.getAll().values().stream().filter(resource->resource.getType()==type && resource.getIsUsable() && !resource.getUtilized()).collect(Collectors.toList());
+		return this._materialResourceRepo.getAll().values().stream().filter(resource->resource.getType() == type && resource.getIsUsable() && !resource.getUtilized()).collect(Collectors.toList());
 	}
 }
