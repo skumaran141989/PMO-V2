@@ -4,7 +4,7 @@ import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.repo.resource.models.HumanResource;
 
-public class SaveHumanResourceHandler extends Handler {
+public class CreateHumanResourceHandler extends Handler {
 	
 	@Override
 	public HandlerResponse<Boolean> process(Object request)	{

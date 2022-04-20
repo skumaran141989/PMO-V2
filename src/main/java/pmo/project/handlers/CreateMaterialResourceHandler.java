@@ -5,7 +5,7 @@ import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.repo.resource.models.MaterialResource;
 
-public class SaveMaterialResourceHandler extends Handler {
+public class CreateMaterialResourceHandler extends Handler {
 
 	@Override
 	public HandlerResponse<Boolean> process(Object request) {

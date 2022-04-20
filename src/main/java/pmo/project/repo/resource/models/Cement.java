@@ -1,5 +1,10 @@
 package pmo.project.repo.resource.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Cement")
 public class Cement extends MaterialResource {
 	private double _granularityStrength;
 	

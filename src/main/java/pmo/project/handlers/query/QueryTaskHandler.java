@@ -4,7 +4,7 @@ import pmo.project.handlers.abstraction.Handler;
 import pmo.project.handlers.response.HandlerResponse;
 import pmo.project.repo.models.Task;
 
-public class QueryTaskInfoExecutor extends Handler {
+public class QueryTaskHandler extends Handler {
 	
 	@Override
 	public HandlerResponse<Task> process(Object request) {

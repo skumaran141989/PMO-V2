@@ -1,5 +1,10 @@
 package pmo.project.repo.resource.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Brick")
 public class Brick extends MaterialResource {
 	private String _strengthGrade;
 	private String _color;

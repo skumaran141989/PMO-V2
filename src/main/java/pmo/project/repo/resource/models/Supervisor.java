@@ -1,5 +1,10 @@
 package pmo.project.repo.resource.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Supervisor")
 public class Supervisor extends HumanResource {
 	private int _supervisingExperience;
 	private boolean _certfied;

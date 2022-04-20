@@ -1,5 +1,10 @@
 package pmo.project.repo.resource.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Labourer")
 public class Labourer extends HumanResource {
 	public String _skill;
 	public int _experience;

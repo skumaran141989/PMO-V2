@@ -1,10 +1,15 @@
 package pmo.project.repo.resource.models;
 
-public class Tiles extends MaterialResource {
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Tiles")
+public class Tile extends MaterialResource {
 	private String _grade;
 	private String _color;
 	
-	public Tiles(String grade, String color, String brandName, long metricValue, double price) {
+	public Tile(String grade, String color, String brandName, long metricValue, double price) {
 		this._grade = grade;
 		this._color = color;
 		

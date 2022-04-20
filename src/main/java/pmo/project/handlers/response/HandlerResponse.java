@@ -20,6 +20,6 @@ public class HandlerResponse<T> {
 	}
 	
 	public void setObject(T object) {
-		_object= object;
+		_object=(T) object;
 	}
 }

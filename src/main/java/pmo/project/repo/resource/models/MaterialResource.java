@@ -1,13 +1,33 @@
 package pmo.project.repo.resource.models;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "MaterialResource")
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class MaterialResource {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long _id;
+	
 	private String _brandName;
 	private long _metricValue;
 	private double _price;
 	private boolean _utilized;
 	private boolean _isUsable;
 	private String _type;
+	private Date _createdAt;
+	private Date _updatedAt;
+	private String _createdBy;
+	private String _updatedBy;
 	
 	public MaterialResource() {
 		this._utilized = false; 
@@ -68,4 +88,36 @@ public abstract class MaterialResource {
 	public long getId() {
 		return this._id;
 	}
+	
+    public void setCreatedDate(Date createdAt) {
+    	this._createdAt = createdAt;
+    }
+    
+    public Date getCreatedDate() {
+    	return this._createdAt;
+    }
+    
+    public void setUpdatedDate(Date updatedAt) {
+    	this._updatedAt = updatedAt;
+    }
+    
+    public Date getUpdatedDate() {
+    	return this._updatedAt;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+    	this._createdBy = createdBy;
+    }
+    
+    public String getcreatedBy() {
+    	return this._createdBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+    	this._updatedBy = updatedBy;
+    }
+    
+    public String getUpdatedBy() {
+    	return this._updatedBy;
+    }
 }

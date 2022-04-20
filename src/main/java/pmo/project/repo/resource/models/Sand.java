@@ -1,5 +1,10 @@
 package pmo.project.repo.resource.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Sand")
 public class Sand extends MaterialResource {
 	private double _granularity;
 	

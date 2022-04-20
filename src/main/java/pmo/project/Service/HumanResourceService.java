@@ -5,31 +5,31 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import pmo.project.repo.HumanResourceRepo;
-import pmo.project.repo.ResourceTimeSlotRepo;
+import pmo.project.repo.TimeSlotRepository;
 import pmo.project.repo.models.TimeSlot;
+import pmo.project.repo.resource.HumanResourceRepository;
 import pmo.project.repo.resource.models.HumanResource;
 
 public class HumanResourceService {
-	private HumanResourceRepo _humanResourceRepo;
-	private ResourceTimeSlotRepo _resourceTimeSlotRepo;
+	private HumanResourceRepository _humanResourceRepo;
+	private TimeSlotRepository _resourceTimeSlotRepo;
 	
-	public HumanResourceService(HumanResourceRepo humanResourceRepo, ResourceTimeSlotRepo resourceTimeSlotRepo){
+	public HumanResourceService(HumanResourceRepository humanResourceRepo, TimeSlotRepository resourceTimeSlotRepo){
 		this._humanResourceRepo = humanResourceRepo;
 		this._resourceTimeSlotRepo = resourceTimeSlotRepo;
 	}
 	
-	public long createHumaResource(HumanResource resource){
+	public HumanResource createHumaResource(HumanResource resource) {
 		return this._humanResourceRepo.save(resource);
 	}
 	
-	public HumanResource getHumanResourceById(long id){
-		return this._humanResourceRepo.get(id);
+	public HumanResource getHumanResourceById(long id) {
+		return this._humanResourceRepo.getById(id);
 	}
 	
 	//this will be a query in real time
 	public List<HumanResource> getHumanResourcesByType(String type) {
-		return this._humanResourceRepo.getAll().values().stream().filter(resource->resource.getType() == type).collect(Collectors.toList());
+		return this._humanResourceRepo.findAll().stream().filter(resource->resource.getType().equals(type)).collect(Collectors.toList());
 	}
 	
 	//this will be a join query in real time
@@ -39,9 +39,9 @@ public class HumanResourceService {
 		
 		for (HumanResource humanResource : humanresources) {
 			
-			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.getAll().values().stream().filter(slot->slot.getResourceId() == humanResource.getId()).collect(Collectors.toList());
+			List<TimeSlot> timeslots = this._resourceTimeSlotRepo.findAll().stream().filter(slot->slot.getResourceId() == humanResource.getId()).collect(Collectors.toList());
 	        boolean isAvailable = true; 
-	        
+	    
          	for (TimeSlot slot : timeslots) {
          		
          		isAvailable=!checkSlotWithinRange(slot, startDate, endDate);

@@ -1,14 +1,31 @@
 package pmo.project.repo.models;
 
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import pmo.project.enums.TaskExecutionStatus;
 import pmo.project.enums.TaskExecutionType;
 
+@Entity
+@Table(name = "TaskExecution")
 public class TaskExecution {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long _id;
+	
 	private long _taskId;
 	private TaskExecutionType _taskExecutiontype;
 	private TaskExecutionStatus _taskExecutionStatus;
 	private int _priority;
+	private Date _createdAt;
+	private Date _updatedAt;
+	private String _createdBy;
+	private String _updatedBy;
 	
 	public void setId(long id) {
 		this._id = id;
@@ -49,4 +66,36 @@ public class TaskExecution {
 	public int getPriority() {
 		return this._priority;
 	}
+	
+    public void setCreatedDate(Date createdAt) {
+    	this._createdAt = createdAt;
+    }
+    
+    public Date getCreatedDate() {
+    	return this._createdAt;
+    }
+    
+    public void setUpdatedDate(Date updatedAt) {
+    	this._updatedAt = updatedAt;
+    }
+    
+    public Date getUpdatedDate() {
+    	return this._updatedAt;
+    }
+    
+    public void setCreatedBy(String createdBy) {
+    	this._createdBy = createdBy;
+    }
+    
+    public String getcreatedBy() {
+    	return this._createdBy;
+    }
+    
+    public void setUpdatedBy(String updatedBy) {
+    	this._updatedBy = updatedBy;
+    }
+    
+    public String getUpdatedBy() {
+    	return this._updatedBy;
+    }
 }

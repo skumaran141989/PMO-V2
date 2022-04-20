@@ -1,8 +1,19 @@
 package pmo.project.repo.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Document")
 public class Document {
-	private String _docuemtURL;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long _id;
+	
+	private String _docuemtURL;
 	private long _referencId;
 	private String _refereType;
 	

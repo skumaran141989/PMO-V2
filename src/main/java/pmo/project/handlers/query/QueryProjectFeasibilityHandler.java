@@ -22,8 +22,8 @@ import pmo.project.utilities.Constant;
 public class QueryProjectFeasibilityHandler extends Handler {
 	
 	@Override
-	public HandlerResponse<StringBuilder> process(Object request) {
-		HandlerResponse<StringBuilder> response = new HandlerResponse<StringBuilder>();
+	public HandlerResponse<String> process(Object request) {
+		HandlerResponse<String> response = new HandlerResponse<String>();
 			
 		try {
 			
@@ -31,7 +31,7 @@ public class QueryProjectFeasibilityHandler extends Handler {
 			StringBuilder output = new StringBuilder();
 			execute(projectExecutionRequest, output);
 			
-			response.setObject(output);
+			response.setObject(output.toString());
 		}
 		catch (Exception ex) {
 			response.getErrorResponse().add(ex.getMessage());
