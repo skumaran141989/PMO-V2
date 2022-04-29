@@ -11,9 +11,11 @@ import pmo.project.handlers.request.ProjectCreationRequest;
 import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.repo.DocumentRepository;
 import pmo.project.repo.ProjectRepository;
+import pmo.project.repo.TaskExecutionRepository;
 import pmo.project.repo.TaskRepository;
 import pmo.project.repo.TaskRequirementRepository;
 import pmo.project.repo.models.Project;
+import pmo.project.repo.models.TaskExecution;
 import pmo.project.repo.models.TaskRequirement;
 import pmo.project.utilities.Constant;
 
@@ -28,6 +30,8 @@ public class ProjectService {
 	@Autowired
 	private TaskRequirementRepository _taskRequirementRepo;
 	@Autowired
+	private TaskExecutionRepository _taskExecutionRepo;
+	@Autowired
 	private TaskService _taskService;
 
 	
@@ -40,7 +44,7 @@ public class ProjectService {
 		
 		if (requests != null) {
 			for	(TaskCreationRequest request : requests) {
-				_taskService.createTask(request);
+				this._taskService.createTask(request);
 			}
 		}
 		
@@ -82,4 +86,9 @@ public class ProjectService {
 	public  List<TaskRequirement> getProjectRequirements(long id) {
 		return this._taskRequirementRepo.findAll().stream().filter(project->project.getProjectId() == id).collect(Collectors.toList());
 	} 
+	
+	@Transactional("readOnlyTM")
+	public  List<TaskExecution> getProjectFeasibilityReport(long id) {
+		return this._taskExecutionRepo.findAll().stream().filter(project->project.getId() == id).collect(Collectors.toList());
+	}
 }

@@ -1,5 +1,7 @@
 package pmo.project;
 
+import java.util.Properties;
+
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +21,12 @@ public class DBReadWriteConfiguration {
         return new DataSourceProperties();
     }
     
+    @Bean
+    @ConfigurationProperties("spring.jpa.read-write")
+    public Properties readWriteJPAProperties() {
+        return new Properties();
+    }
+    
     @Bean("readWriteTM")
     public PlatformTransactionManager readWriteTransactionManager() {
         JpaTransactionManager transactionManager
@@ -29,13 +37,14 @@ public class DBReadWriteConfiguration {
     }
     
     @Bean("entityManagerFactoryB")
-    public LocalContainerEntityManagerFactoryBean readWriteEntityManager() {
+    public LocalContainerEntityManagerFactoryBean readWriteEntityManager() {;
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(readWriteDatasource());
         em.setPackagesToScan("pmo.project.repo");
         em.setPersistenceUnitName("rw-default");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(readWriteJPAProperties());
         
         return em;
     }

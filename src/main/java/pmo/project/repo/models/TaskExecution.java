@@ -18,10 +18,13 @@ public class TaskExecution {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long _id;
 	
+	private long _executionRequestId;
 	private long _taskId;
 	private TaskExecutionType _taskExecutiontype;
 	private TaskExecutionStatus _taskExecutionStatus;
 	private int _priority;
+	private Date _startDate;
+	private Date _completionDate;
 	private Date _createdAt;
 	private Date _updatedAt;
 	private String _createdBy;
@@ -33,6 +36,14 @@ public class TaskExecution {
 	
 	public long getId() {
 		return this._id;
+	}
+	
+	public void setExecutionRequestId(long executionRequestId) {
+		this._executionRequestId = executionRequestId;
+	}
+	
+	public long getExecutionRequestId() {
+		return this._executionRequestId;
 	}
 	
 	public void setTaskId(long id) {
@@ -97,5 +108,21 @@ public class TaskExecution {
     
     public String getUpdatedBy() {
     	return this._updatedBy;
+    }
+    
+    public Date getStartDate() {
+    	return this._startDate;
+    }
+    
+    public void setStartDate(Date startDate) {
+    	this._startDate = startDate;
+    }
+    
+    public Date getDueDate() {
+    	return this._completionDate;
+    }
+    
+    public void setDueDate(Date completionDate) {
+    	this._completionDate = completionDate;
     }
 }

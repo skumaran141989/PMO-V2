@@ -1,5 +1,7 @@
 package pmo.project;
 
+import java.util.Properties;
+
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -35,14 +37,20 @@ public class DBReadConfiguration {
         em.setPackagesToScan("pmo.project.repo");
         em.setPersistenceUnitName("ro-default");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        em.setJpaProperties(readOnlyJPAProperties());
         
         return em;
     }
     
     @Bean
+    @ConfigurationProperties("spring.jpa.read-only")
+    public Properties readOnlyJPAProperties() {
+        return new Properties();
+    }
+    
+    @Bean
     public DriverManagerDataSource readOnlyDatasource() {
     	DataSourceProperties env = readOnlyDataSourceProperties();
-    	 System.out.println(env.getUrl());
         DriverManagerDataSource dataSource
                 = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getDriverClassName());

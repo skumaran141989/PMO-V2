@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pmo.project.handlers.request.TaskCreationRequest;
 import pmo.project.repo.DocumentRepository;
+import pmo.project.repo.TaskExecutionRepository;
 import pmo.project.repo.TaskRepository;
 import pmo.project.repo.TaskRequirementRepository;
 import pmo.project.repo.models.Task;
+import pmo.project.repo.models.TaskExecution;
 import pmo.project.repo.models.TaskRequirement;
 import pmo.project.utilities.Constant;
 
@@ -25,6 +27,8 @@ public class TaskService {
 	private DocumentRepository _documentRepo;
 	@Autowired
 	private TaskRequirementRepository _taskRequirementRepo;
+	@Autowired
+	private TaskExecutionRepository _taskExecutionRepo;
 	
 	@Transactional("readWriteTM")
 	public Task createTask(TaskCreationRequest requirements) {
@@ -98,4 +102,9 @@ public class TaskService {
 	public List<TaskRequirement> getTaskRequirements(long id, String type) {
 		return this._taskRequirementRepo.findAll().stream().filter(requirements->requirements.getTaskId() == id && requirements.getType().equals(type)).collect(Collectors.toList());
 	} 
+	
+	@Transactional("readOnlyTM")
+	public  List<TaskExecution> getTaskFeasibilityReport(long id) {
+		return this._taskExecutionRepo.findAll().stream().filter(task -> task.getTaskId() == id).collect(Collectors.toList());
+	}
 }
